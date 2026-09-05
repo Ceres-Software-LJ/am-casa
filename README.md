@@ -161,17 +161,24 @@ Salve os novos arquivos com **exatamente esses nomes** e pronto, não precisa
 mexer no código. Se quiser gerar as versões a partir de um vídeo novo, os
 comandos usados foram (precisa ter o `ffmpeg` instalado):
 
+> **Atenção à marca d'água.** O vídeo original tinha um brilho em forma de
+> estrela no canto inferior direito (assinatura do gerador). O recorte
+> `crop=1120:630:0:45` corta essa faixa fora — por isso ele está nos comandos
+> do desktop. Se o vídeo novo não tiver marca d'água, pode remover esse recorte.
+> Ele também é o que desloca o enquadramento para a direita, tirando o volume
+> escuro do cabelo de trás do texto.
+
 ```bash
-# desktop 16:9
-ffmpeg -i ORIGINAL.mp4 -an -c:v libx264 -preset slow -crf 27   -pix_fmt yuv420p -movflags +faststart assets/hero-desktop.mp4
-ffmpeg -i ORIGINAL.mp4 -an -c:v libvpx-vp9 -crf 36 -b:v 0 -row-mt 1   assets/hero-desktop.webm
+# desktop 16:9 — o crop remove a marca d'água e desloca o enquadramento
+ffmpeg -i ORIGINAL.mp4 -an -vf "crop=1120:630:0:45,scale=1280:720"   -c:v libx264 -preset slow -crf 27 -pix_fmt yuv420p -movflags +faststart   assets/hero-desktop.mp4
+ffmpeg -i ORIGINAL.mp4 -an -vf "crop=1120:630:0:45,scale=1280:720"   -c:v libvpx-vp9 -crf 36 -b:v 0 -row-mt 1 assets/hero-desktop.webm
 
 # mobile 9:16 (recorte central do mesmo vídeo)
 ffmpeg -i ORIGINAL.mp4 -an -vf "crop=406:720:(iw-406)/2:0,scale=540:960"   -c:v libx264 -preset slow -crf 28 -pix_fmt yuv420p -movflags +faststart   assets/hero-mobile.mp4
 ffmpeg -i ORIGINAL.mp4 -an -vf "crop=406:720:(iw-406)/2:0,scale=540:960"   -c:v libvpx-vp9 -crf 38 -b:v 0 -row-mt 1 assets/hero-mobile.webm
 
-# poster (quadro em 1,2s)
-ffmpeg -ss 1.2 -i ORIGINAL.mp4 -frames:v 1 -q:v 4 assets/hero-poster.jpg
+# poster (quadro em 1,2s, mesmo enquadramento do desktop)
+ffmpeg -ss 1.2 -i ORIGINAL.mp4 -frames:v 1   -vf "crop=1120:630:0:45,scale=1280:720" -q:v 4 assets/hero-poster.jpg
 ```
 
 > Os `.mp4` originais que estão na **raiz** da pasta (`Close_up_...` e
