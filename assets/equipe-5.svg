@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 760" width="600" height="760" role="img" aria-label="Foto da equipe 5">
+  <rect width="600" height="760" fill="#EFE9E1"/>
+  <rect x="10" y="10" width="580" height="740" fill="none" stroke="#D9CFC4" stroke-width="2"/>
+  <circle cx="300" cy="300" r="86" fill="#DFD5C8"/>
+  <path d="M300 400c-92 0-166 58-166 130v120h332V530c0-72-74-130-166-130z" fill="#DFD5C8"/>
+  <g fill="#A99C8D" font-family="Georgia, 'Times New Roman', serif" text-anchor="middle">
+    <text x="300" y="690" font-size="28" letter-spacing="3">FOTO 5</text>
+  </g>
+</svg>

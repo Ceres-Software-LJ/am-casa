@@ -1,0 +1,1145 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- ============================================================
+       SEO BÁSICO
+       [AJUSTAR] Troque o domínio abaixo pelo domínio final do site.
+       ============================================================ -->
+  <title>AM Casa | Salão de beleza e produtos para cabelo em Campo Grande, MS</title>
+  <meta name="description" content="Espaço de beleza em Campo Grande, MS. Corte, coloração, tratamentos e produtos para cabelo, com atendimento personalizado para mulheres de todas as idades. Agende pelo WhatsApp." />
+  <meta name="author" content="AM Casa" />
+  <meta name="theme-color" content="#FAF8F5" />
+  <link rel="canonical" href="https://amcasa.com.br/" /><!-- [AJUSTAR] domínio final -->
+
+  <!-- Open Graph / redes sociais -->
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="pt_BR" />
+  <meta property="og:site_name" content="AM Casa" />
+  <meta property="og:title" content="AM Casa | Cuidado de verdade para o seu cabelo" />
+  <meta property="og:description" content="Salão de beleza e produtos para cabelo em Campo Grande, MS. Atendimento personalizado para mulheres de todas as idades." />
+  <meta property="og:url" content="https://amcasa.com.br/" /><!-- [AJUSTAR] domínio final -->
+  <!-- [AJUSTAR] Substitua por uma imagem 1200x630px em /assets/og-image.jpg -->
+  <meta property="og:image" content="https://amcasa.com.br/assets/logo.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="AM Casa | Cuidado de verdade para o seu cabelo" />
+  <meta name="twitter:description" content="Salão de beleza e produtos para cabelo em Campo Grande, MS." />
+
+  <!-- Favicon -->
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="assets/logo.jpg" />
+
+  <!-- Tipografia: Cormorant Garamond (títulos) + Inter (corpo) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="styles.css" />
+  <!-- Sistema de animacoes (modulo independente) -->
+  <link rel="stylesheet" href="animations.css" />
+
+  <!-- Marca que o JS está ativo: as animações de entrada só ficam
+       ocultas nesse caso (sem JS, o conteúdo aparece normalmente). -->
+  <script>document.documentElement.classList.add("js");</script>
+
+  <!-- ============================================================
+       DADOS ESTRUTURADOS (JSON-LD) — LocalBusiness / HairSalon
+       [AJUSTAR] endereço, CEP, coordenadas e horários reais.
+       ============================================================ -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "HairSalon",
+    "name": "AM Casa",
+    "alternateName": "Ana Mesquita Casa",
+    "description": "Espaço de beleza e venda de produtos para cabelo em Campo Grande, MS. Atendimento personalizado para mulheres de todas as idades.",
+    "image": "https://amcasa.com.br/assets/logo.jpg",
+    "url": "https://amcasa.com.br/",
+    "telephone": "+5567981283113",
+    "priceRange": "$$",
+    "currenciesAccepted": "BRL",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "[AJUSTAR: rua e número]",
+      "addressLocality": "Campo Grande",
+      "addressRegion": "MS",
+      "postalCode": "[AJUSTAR: CEP]",
+      "addressCountry": "BR"
+    },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": "-20.4697",
+      "longitude": "-54.6201"
+    },
+    "sameAs": [
+      "https://www.instagram.com/anamesquitacasa/"
+    ],
+    "openingHoursSpecification": [
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+        "opens": "09:00",
+        "closes": "19:00"
+      },
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Saturday"],
+        "opens": "09:00",
+        "closes": "17:00"
+      }
+    ],
+    "areaServed": {
+      "@type": "City",
+      "name": "Campo Grande"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Serviços AM Casa",
+      "itemListElement": [
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Corte e finalização" } },
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Coloração e mechas" } },
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Tratamentos capilares" } },
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Escova e penteados" } },
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Cuidados para todas as idades" } }
+      ]
+    }
+  }
+  </script>
+</head>
+
+<body>
+  <!-- Link de acessibilidade: pular para o conteúdo -->
+  <a class="skip-link" href="#main">Pular para o conteúdo</a>
+
+  <!-- Sprite SVG: ícones de marca (WhatsApp e Instagram).
+       O Lucide não distribui mais ícones de marcas, por isso ficam aqui. -->
+  <svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true" focusable="false">
+    <symbol id="icon-instagram" viewBox="0 0 24 24">
+      <g fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+        <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+        <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+      </g>
+    </symbol>
+    <symbol id="icon-whatsapp" viewBox="0 0 24 24">
+      <path fill="currentColor" d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884a9.82 9.82 0 0 1 6.988 2.896 9.82 9.82 0 0 1 2.893 6.994c-.003 5.45-4.437 9.885-9.885 9.885M20.52 3.449C18.24 1.245 15.24 0 12.045 0 5.463 0 .104 5.36.101 11.945c0 2.096.549 4.14 1.593 5.945L0 24l6.335-1.652a11.9 11.9 0 0 0 5.71 1.454h.005c6.585 0 11.946-5.36 11.949-11.945a11.9 11.9 0 0 0-3.479-8.408"/>
+    </symbol>
+  </svg>
+
+  <!-- ============================================================
+       0. HEADER FIXO
+       Translúcido com blur. No mobile, esconde ao rolar para baixo
+       e reaparece ao rolar para cima (ver script.js).
+       ============================================================ -->
+  <header class="site-header" id="siteHeader">
+    <div class="container site-header__inner">
+      <a class="brand" href="#hero" aria-label="AM Casa — voltar ao início">
+        <img class="brand__logo" src="assets/logo.jpg" alt="Logo AM Casa" width="44" height="44" />
+        <span class="brand__text">
+          <span class="brand__name">AM Casa</span>
+          <span class="brand__tag">Ana Mesquita</span>
+        </span>
+      </a>
+
+      <nav class="site-nav" aria-label="Navegação principal">
+        <a href="#sobre">Sobre</a>
+        <a href="#servicos">Serviços</a>
+        <a href="#produtos">Produtos</a>
+        <a href="#localizacao">Onde estamos</a>
+      </nav>
+
+      <a class="btn btnRipple btn--primary btn--sm"
+         href="https://wa.me/5567981283113?text=Oi!%20Vim%20pelo%20site%20e%20quero%20agendar%20um%20hor%C3%A1rio%20na%20AM%20Casa."
+         target="_blank" rel="noopener"
+         aria-label="Agendar um horário pelo WhatsApp">
+        <svg class="icon" aria-hidden="true" focusable="false"><use href="#icon-whatsapp"></use></svg>
+        <span>Agendar</span>
+      </a>
+    </div>
+  </header>
+
+  <main id="main">
+
+    <!-- ==========================================================
+         1. HERO
+         Desktop: 2 colunas (texto 55% / foto 45%).
+         Mobile: empilhado, com o CTA visível sem rolar.
+         ========================================================== -->
+    <section class="hero" id="hero">
+
+      <!-- ==========================================================
+           FUNDO EM VÍDEO
+           Camadas, de trás para a frente:
+             1. .hero__poster  — imagem estática, sempre presente
+             2. .hero__video   — vídeo em loop (é um aprimoramento)
+             3. .hero__overlay — véu que garante a leitura do texto
+             4. .hero__grid    — a copy e os CTAs
+
+           [AJUSTAR: adicionar arquivo de vídeo aqui]
+           Coloque na pasta /assets:
+             hero-desktop.webm + hero-desktop.mp4   (16:9, ~1920x1080)
+             hero-mobile.webm  + hero-mobile.mp4    (9:16, ~1080x1920)
+             hero-poster.jpg                        (16:9, ~1920x1080)
+           Enquanto esses arquivos não existirem, a página mostra o
+           poster de exemplo e nada quebra.
+
+           POR QUE DOIS <video> E NÃO UM SÓ COM <source media="...">:
+           o atributo media dentro de <source> é avaliado uma única
+           vez, no carregamento, e vários navegadores o ignoram em
+           <video> (ele só é confiável em <picture>). Além disso não
+           reage a girar o celular. Dois elementos trocados por media
+           query no CSS é previsível em todo lugar — e o animations.js
+           descarrega o que não está em uso, então nunca se baixam os
+           dois vídeos.
+           ========================================================== -->
+      <div class="hero__bg" aria-hidden="true">
+        <div class="hero__poster"></div>
+
+        <video class="hero__video hero__video--desktop"
+               autoplay muted loop playsinline
+               preload="metadata"
+               poster="assets/hero-poster.jpg"
+               tabindex="-1">
+          <source src="assets/hero-desktop.webm" type="video/webm" />
+          <source src="assets/hero-desktop.mp4" type="video/mp4" />
+        </video>
+
+        <video class="hero__video hero__video--mobile"
+               autoplay muted loop playsinline
+               preload="metadata"
+               poster="assets/hero-poster.jpg"
+               tabindex="-1">
+          <source src="assets/hero-mobile.webm" type="video/webm" />
+          <source src="assets/hero-mobile.mp4" type="video/mp4" />
+        </video>
+      </div>
+
+      <!-- Véu de leitura: mais denso onde fica o texto e mais leve
+           do lado onde o vídeo aparece. Ver styles.css, bloco 08. -->
+      <div class="hero__overlay" aria-hidden="true"></div>
+
+      <div class="container hero__grid">
+
+        <div class="hero__content">
+          <p class="badge" data-hero-step="1">
+            <i data-lucide="map-pin" aria-hidden="true"></i>
+            Campo Grande, MS
+          </p>
+
+          <h1 class="hero__title" data-hero-step="2">Cuidado de verdade para o seu cabelo, com quem escuta você.</h1>
+
+          <p class="hero__lead" data-hero-step="3">
+            Na AM Casa você encontra profissionais atenciosos, cuidado personalizado e os produtos
+            certos para manter o resultado depois que você sai daqui. Em Campo Grande, para mulheres
+            de todas as idades.
+          </p>
+
+          <div class="hero__actions" data-hero-step="4">
+            <a class="btn btnRipple btn--primary"
+               href="https://wa.me/5567981283113?text=Oi!%20Vim%20pelo%20site%20e%20quero%20agendar%20um%20hor%C3%A1rio%20na%20AM%20Casa."
+               target="_blank" rel="noopener"
+               aria-label="Agendar um horário pelo WhatsApp">
+              <svg class="icon" aria-hidden="true" focusable="false"><use href="#icon-whatsapp"></use></svg>
+              <span>Agendar pelo WhatsApp</span>
+            </a>
+
+            <a class="link-arrow" href="#sobre">Conhecer o espaço <span aria-hidden="true">↓</span></a>
+          </div>
+        </div>
+
+        <!-- Cards flutuantes sobre o vídeo.
+             Decorativos (aria-hidden): repetem o que a barra de
+             confiança logo abaixo já diz em texto. Escondidos no
+             mobile, onde o vídeo é vertical e o texto ocupa a tela.
+             Animação própria, fora da sequência escalonada do hero. -->
+        <div class="hero__cards" aria-hidden="true">
+          <div class="float-card float-card--a">
+            <i data-lucide="ear"></i>
+            <span>
+              <strong>Você é ouvida</strong>
+              <em>Conversa antes de começar</em>
+            </span>
+          </div>
+
+          <div class="float-card float-card--b">
+            <i data-lucide="users-round"></i>
+            <span>
+              <strong>Todas as idades</strong>
+              <em>Sem pressa, sem julgamento</em>
+            </span>
+          </div>
+
+          <div class="float-card float-card--c">
+            <i data-lucide="shopping-bag"></i>
+            <span>
+              <strong>Produtos para levar</strong>
+              <em>O cuidado continua em casa</em>
+            </span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Indicador de rolagem: avisa que a página continua abaixo,
+           coisa que um hero de tela cheia sempre precisa deixar claro. -->
+      <a class="hero__scroll" href="#sobre" aria-label="Rolar para conhecer o espaço">
+        <span class="hero__scroll-texto">Role para conhecer</span>
+        <span class="hero__scroll-linha" aria-hidden="true"></span>
+      </a>
+    </section>
+
+    <!-- ==========================================================
+         2. BARRA DE CONFIANÇA — 4 selos (grid 2x2 no mobile)
+         ========================================================== -->
+    <section class="trust" aria-label="Nossos diferenciais rápidos">
+      <div class="container">
+        <ul class="trust__grid">
+          <li class="trust__item reveal">
+            <i data-lucide="users" aria-hidden="true"></i>
+            <span>Para todas as idades</span>
+          </li>
+          <li class="trust__item reveal">
+            <i data-lucide="heart-handshake" aria-hidden="true"></i>
+            <span>Equipe atenciosa</span>
+          </li>
+          <li class="trust__item reveal">
+            <i data-lucide="shopping-bag" aria-hidden="true"></i>
+            <span>Produtos para cabelo</span>
+          </li>
+          <li class="trust__item reveal">
+            <i data-lucide="message-circle" aria-hidden="true"></i>
+            <span>Atendimento personalizado</span>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ==========================================================
+         3. SOBRE A AM CASA — texto + foto
+         ========================================================== -->
+    <section class="section sobre" id="sobre">
+      <div class="container sobre__grid">
+
+        <figure class="sobre__media reveal">
+          <!-- Pilha de fotos: alternam sozinhas a cada 4s e abrem
+               em leque ao clicar (ou pelo botão, para o teclado).
+               [AJUSTAR] Trocar as 3 fotos por reais (~800x900px, .webp).
+               Para ter mais ou menos fotos, basta acrescentar ou
+               remover blocos <li class="photo-fan__item">. -->
+          <div class="photo-fan" data-photo-fan>
+            <ul class="photo-fan__stack" role="list">
+              <li class="photo-fan__item">
+                <img src="assets/sobre-espaco.svg"
+                     alt="Detalhe do ambiente acolhedor da AM Casa"
+                     width="800" height="900" loading="lazy" />
+              </li>
+              <li class="photo-fan__item">
+                <img src="assets/sobre-2.svg"
+                     alt="Espaço de atendimento da AM Casa"
+                     width="800" height="900" loading="lazy" />
+              </li>
+              <li class="photo-fan__item">
+                <img src="assets/sobre-3.svg"
+                     alt="Cantinho dos produtos para cabelo da AM Casa"
+                     width="800" height="900" loading="lazy" />
+              </li>
+            </ul>
+
+            <button class="photo-fan__toggle btnRipple" type="button" aria-expanded="false">
+              <i data-lucide="layers" aria-hidden="true"></i>
+              <span class="photo-fan__label">Ver as fotos</span>
+            </button>
+          </div>
+        </figure>
+
+        <div class="sobre__content reveal">
+          <p class="eyebrow">Quem somos</p>
+          <h2 class="section-title">Sobre a AM Casa</h2>
+
+          <p>
+            A AM Casa nasceu de uma ideia simples: cuidar bem começa por ouvir. Antes de qualquer
+            procedimento, a gente entende o que você quer, o seu tipo de cabelo e a sua rotina.
+            Só então coloca a mão no trabalho.
+          </p>
+          <p>
+            Mais do que um salão, é um espaço pensado para você se sentir bem. Um lugar acolhedor,
+            com uma equipe que trata cada cliente com atenção de verdade, seja qual for a sua idade
+            ou o seu estilo.
+          </p>
+          <p>
+            E o cuidado não termina na porta. Além dos serviços, a gente oferece produtos
+            selecionados para cabelo, para que o resultado continue bonito no dia a dia, na sua casa.
+          </p>
+
+          <a class="btn btnRipple btn--outline"
+             href="https://www.instagram.com/anamesquitacasa/"
+             target="_blank" rel="noopener"
+             aria-label="Ver o perfil da AM Casa no Instagram">
+            <svg class="icon icon--stroke" aria-hidden="true" focusable="false"><use href="#icon-instagram"></use></svg>
+            <span>Ver no Instagram</span>
+          </a>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==========================================================
+         4. SERVIÇOS
+         [AJUSTAR] Trocar pelos serviços reais e seus textos.
+         Cada card tem CTA próprio, com o nome do serviço na
+         mensagem pré-preenchida do WhatsApp.
+         ========================================================== -->
+    <section class="section servicos" id="servicos">
+      <div class="container">
+
+        <header class="section__head">
+          <p class="eyebrow">Serviços</p>
+          <h2 class="section-title">O que fazemos por você</h2>
+          <p class="section__lead section-sub">
+            Cada atendimento começa por uma conversa. Escolha o que você precisa e fale com a gente.
+          </p>
+        </header>
+
+        <div class="cards">
+
+          <article class="card reveal">
+            <i class="card__icon" data-lucide="scissors" aria-hidden="true"></i>
+            <h3>Corte e finalização</h3>
+            <p>Corte pensado para o seu rosto e o seu dia a dia, com finalização que você consegue repetir em casa.</p>
+            <a class="card__cta"
+               href="https://wa.me/5567981283113?text=Oi!%20Vim%20pelo%20site%20e%20quero%20agendar%20um%20hor%C3%A1rio%20na%20AM%20Casa.%20Tenho%20interesse%20em%3A%20Corte%20e%20finaliza%C3%A7%C3%A3o."
+               target="_blank" rel="noopener"
+               aria-label="Agendar corte e finalização pelo WhatsApp">
+              Agendar este serviço <span aria-hidden="true">→</span>
+            </a>
+          </article>
+
+          <article class="card reveal">
+            <i class="card__icon" data-lucide="palette" aria-hidden="true"></i>
+            <h3>Coloração e mechas</h3>
+            <p>Cor, luzes e tons trabalhados com técnica e produtos de qualidade, respeitando a saúde do fio.</p>
+            <a class="card__cta"
+               href="https://wa.me/5567981283113?text=Oi!%20Vim%20pelo%20site%20e%20quero%20agendar%20um%20hor%C3%A1rio%20na%20AM%20Casa.%20Tenho%20interesse%20em%3A%20Colora%C3%A7%C3%A3o%20e%20mechas."
+               target="_blank" rel="noopener"
+               aria-label="Agendar coloração e mechas pelo WhatsApp">
+              Agendar este serviço <span aria-hidden="true">→</span>
+            </a>
+          </article>
+
+          <article class="card reveal">
+            <i class="card__icon" data-lucide="droplets" aria-hidden="true"></i>
+            <h3>Tratamentos capilares</h3>
+            <p>Hidratação, reconstrução e cuidados para devolver força, brilho e maciez ao cabelo.</p>
+            <a class="card__cta"
+               href="https://wa.me/5567981283113?text=Oi!%20Vim%20pelo%20site%20e%20quero%20agendar%20um%20hor%C3%A1rio%20na%20AM%20Casa.%20Tenho%20interesse%20em%3A%20Tratamentos%20capilares."
+               target="_blank" rel="noopener"
+               aria-label="Agendar tratamentos capilares pelo WhatsApp">
+              Agendar este serviço <span aria-hidden="true">→</span>
+            </a>
+          </article>
+
+          <article class="card reveal">
+            <i class="card__icon" data-lucide="wind" aria-hidden="true"></i>
+            <h3>Escova e penteados</h3>
+            <p>Do liso do dia a dia ao penteado para uma ocasião especial.</p>
+            <a class="card__cta"
+               href="https://wa.me/5567981283113?text=Oi!%20Vim%20pelo%20site%20e%20quero%20agendar%20um%20hor%C3%A1rio%20na%20AM%20Casa.%20Tenho%20interesse%20em%3A%20Escova%20e%20penteados."
+               target="_blank" rel="noopener"
+               aria-label="Agendar escova e penteados pelo WhatsApp">
+              Agendar este serviço <span aria-hidden="true">→</span>
+            </a>
+          </article>
+
+          <article class="card reveal">
+            <i class="card__icon" data-lucide="heart" aria-hidden="true"></i>
+            <h3>Cuidados para todas as idades</h3>
+            <p>Atendimento acolhedor para você, sua mãe e sua filha. Aqui, cada fase tem o seu cuidado.</p>
+            <a class="card__cta"
+               href="https://wa.me/5567981283113?text=Oi!%20Vim%20pelo%20site%20e%20quero%20agendar%20um%20hor%C3%A1rio%20na%20AM%20Casa.%20Tenho%20interesse%20em%3A%20Cuidados%20para%20todas%20as%20idades."
+               target="_blank" rel="noopener"
+               aria-label="Agendar cuidados para todas as idades pelo WhatsApp">
+              Agendar este serviço <span aria-hidden="true">→</span>
+            </a>
+          </article>
+
+          <!-- [AJUSTAR] Para adicionar um serviço, copie um bloco <article class="card"> acima,
+               troque ícone (data-lucide), título, texto e o nome do serviço no final do link. -->
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================
+         5. DIFERENCIAIS — fundo areia claro
+         ========================================================== -->
+    <section class="section section--sand diferenciais" id="diferenciais">
+      <div class="container">
+
+        <header class="section__head">
+          <p class="eyebrow">Diferenciais</p>
+          <h2 class="section-title">Por que escolher a AM Casa</h2>
+        </header>
+
+        <div class="feature-grid">
+
+          <article class="feature reveal">
+            <i data-lucide="ear" aria-hidden="true"></i>
+            <h3>Você é ouvida</h3>
+            <p>A gente entende o que você quer antes de começar. Nada de sair do salão com algo que você não pediu.</p>
+          </article>
+
+          <article class="feature reveal">
+            <i data-lucide="package" aria-hidden="true"></i>
+            <h3>O cuidado continua em casa</h3>
+            <p>Além dos serviços, você leva os produtos certos para manter o resultado por mais tempo.</p>
+          </article>
+
+          <article class="feature reveal">
+            <i data-lucide="users-round" aria-hidden="true"></i>
+            <h3>Um espaço para todas as idades</h3>
+            <p>Sem julgamento e sem pressa. Um lugar onde qualquer mulher se sente bem-vinda.</p>
+          </article>
+
+          <article class="feature reveal">
+            <i data-lucide="armchair" aria-hidden="true"></i>
+            <h3>Ambiente acolhedor</h3>
+            <p>Se sentir confortável faz parte do resultado. Aqui você relaxa enquanto cuida de você.</p>
+          </article>
+
+        </div>
+
+        <div class="section__cta reveal">
+          <a class="btn btnRipple btn--primary"
+             href="https://wa.me/5567981283113?text=Oi!%20Vim%20pelo%20site%20e%20quero%20agendar%20um%20hor%C3%A1rio%20na%20AM%20Casa."
+             target="_blank" rel="noopener"
+             aria-label="Agendar um horário pelo WhatsApp">
+            <svg class="icon" aria-hidden="true" focusable="false"><use href="#icon-whatsapp"></use></svg>
+            <span>Agendar meu horário</span>
+          </a>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==========================================================
+         6. COMO FUNCIONA — 4 etapas
+         ========================================================== -->
+    <section class="section etapas" id="como-funciona">
+      <div class="container">
+
+        <header class="section__head">
+          <p class="eyebrow">Passo a passo</p>
+          <h2 class="section-title">Como funciona</h2>
+        </header>
+
+        <ol class="steps">
+          <li class="step reveal">
+            <span class="step__num" aria-hidden="true">01</span>
+            <h3>Você chama no WhatsApp</h3>
+            <p>Conta o que precisa e a gente encontra o melhor horário para você.</p>
+          </li>
+          <li class="step reveal">
+            <span class="step__num" aria-hidden="true">02</span>
+            <h3>A gente escuta você</h3>
+            <p>No dia, conversamos sobre o que você quer e o que combina com o seu cabelo.</p>
+          </li>
+          <li class="step reveal">
+            <span class="step__num" aria-hidden="true">03</span>
+            <h3>Cuidamos de você</h3>
+            <p>O procedimento é feito com atenção, técnica e produtos de qualidade.</p>
+          </li>
+          <li class="step reveal">
+            <span class="step__num" aria-hidden="true">04</span>
+            <h3>O cuidado vai com você</h3>
+            <p>Você sai com o resultado pronto e a orientação certa para manter em casa.</p>
+          </li>
+        </ol>
+
+      </div>
+    </section>
+
+    <!-- ==========================================================
+         7. PRODUTOS PARA CABELO
+         Vitrine visual. No mobile vira carrossel horizontal (swipe).
+         [AJUSTAR] Trocar fotos, nomes e descrições pelos produtos reais.
+         ========================================================== -->
+    <section class="section produtos" id="produtos">
+      <div class="container">
+
+        <header class="section__head">
+          <p class="eyebrow">Loja</p>
+          <h2 class="section-title">Produtos para cabelo</h2>
+          <p class="section__lead section-sub">
+            Produtos selecionados para você manter em casa o cuidado que começou aqui.
+            Fale com a gente para saber o que combina com o seu cabelo.
+          </p>
+        </header>
+
+        <ul class="showcase" role="list">
+          <li class="product reveal">
+            <div class="product__media browser-mock">
+              <!-- [AJUSTAR] foto real do produto (~600x700px, .webp) -->
+              <img src="assets/produto-1.svg" alt="Shampoo e condicionador de tratamento" width="600" height="700" loading="lazy" />
+            </div>
+            <h3>Shampoo e condicionador</h3><!-- [AJUSTAR] -->
+            <p>Para limpar sem ressecar e manter os fios equilibrados.</p><!-- [AJUSTAR] -->
+          </li>
+
+          <li class="product reveal">
+            <div class="product__media browser-mock">
+              <img src="assets/produto-2.svg" alt="Máscara de hidratação capilar" width="600" height="700" loading="lazy" />
+            </div>
+            <h3>Máscaras de tratamento</h3><!-- [AJUSTAR] -->
+            <p>Hidratação e reconstrução para usar na sua rotina.</p><!-- [AJUSTAR] -->
+          </li>
+
+          <li class="product reveal">
+            <div class="product__media browser-mock">
+              <img src="assets/produto-3.svg" alt="Leave-in e finalizadores para cabelo" width="600" height="700" loading="lazy" />
+            </div>
+            <h3>Finalizadores</h3><!-- [AJUSTAR] -->
+            <p>Leave-in, óleos e cremes para o resultado durar mais.</p><!-- [AJUSTAR] -->
+          </li>
+
+          <li class="product reveal">
+            <div class="product__media browser-mock">
+              <img src="assets/produto-4.svg" alt="Produtos de proteção da cor do cabelo" width="600" height="700" loading="lazy" />
+            </div>
+            <h3>Proteção da cor</h3><!-- [AJUSTAR] -->
+            <p>Para cabelos coloridos, mantendo o tom bonito por mais tempo.</p><!-- [AJUSTAR] -->
+          </li>
+        </ul>
+
+        <div class="section__cta reveal">
+          <a class="btn btnRipple btn--primary"
+             href="https://wa.me/5567981283113?text=Oi!%20Vim%20pelo%20site%20e%20quero%20saber%20mais%20sobre%20os%20produtos%20para%20cabelo%20da%20AM%20Casa."
+             target="_blank" rel="noopener"
+             aria-label="Falar sobre produtos para cabelo pelo WhatsApp">
+            <svg class="icon" aria-hidden="true" focusable="false"><use href="#icon-whatsapp"></use></svg>
+            <span>Falar sobre produtos</span>
+          </a>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==========================================================
+         8. EQUIPE — grade de fotos com filtro por especialidade
+
+         [AJUSTAR] Troque as fotos de /assets/equipe-1..6.svg por
+         retratos reais (~600x760px, .webp), e os nomes e funções.
+
+         COMO O FILTRO FUNCIONA: cada card tem o atributo
+         data-especialidades com as palavras-chave separadas por
+         espaço. Os botões de filtro têm data-filtro com a mesma
+         palavra. Para criar uma categoria nova, basta acrescentar
+         um botão e usar a palavra nos cards — o JS se adapta.
+         ========================================================== -->
+    <section class="section section--sand equipe" id="equipe">
+      <div class="container">
+
+        <header class="section__head">
+          <p class="eyebrow">Quem cuida de você</p>
+          <h2 class="section-title">Nossa equipe</h2>
+          <p class="section__lead section-sub">
+            Profissionais atenciosas, cada uma com a sua especialidade.
+            Filtre pelo que você procura.
+          </p>
+        </header>
+
+        <!-- Filtros -->
+        <div class="filtros" role="group" aria-label="Filtrar equipe por especialidade">
+          <button class="filtro is-active" type="button" data-filtro="todas" aria-pressed="true">Todas</button>
+          <button class="filtro" type="button" data-filtro="cortes" aria-pressed="false">Cortes</button>
+          <button class="filtro" type="button" data-filtro="coloracao" aria-pressed="false">Coloração</button>
+          <button class="filtro" type="button" data-filtro="tratamentos" aria-pressed="false">Tratamentos</button>
+          <button class="filtro" type="button" data-filtro="penteados" aria-pressed="false">Penteados</button>
+        </div>
+
+        <!-- Aviso para leitores de tela quando o filtro muda -->
+        <p class="sr-only" role="status" aria-live="polite" data-filtro-status></p>
+
+        <ul class="team" role="list" data-filtravel>
+          <li class="member" data-especialidades="cortes penteados">
+            <div class="member__media member-card__photo">
+              <!-- [AJUSTAR] foto retrato real (~600x760px, .webp) -->
+              <img src="assets/equipe-1.svg"
+                   alt="Retrato de Nome da profissional 1, Cabeleireira da AM Casa"
+                   width="600" height="760" loading="lazy" />
+            </div>
+            <h3>Nome da profissional 1</h3><!-- [AJUSTAR: nome real] -->
+            <p class="member__role">Cabeleireira</p><!-- [AJUSTAR: função real] -->
+            <p class="member__tags">Cortes · Penteados</p>
+            <a class="member__cta"
+               href="https://wa.me/5567981283113?text=Oi!%20Vim%20pelo%20site%20e%20quero%20agendar%20um%20hor%C3%A1rio%20na%20AM%20Casa."
+               target="_blank" rel="noopener"
+               aria-label="Agendar horário com Nome da profissional 1 pelo WhatsApp">
+              Agendar <span aria-hidden="true">→</span>
+            </a>
+          </li>
+
+          <li class="member" data-especialidades="coloracao tratamentos">
+            <div class="member__media member-card__photo">
+              <!-- [AJUSTAR] foto retrato real (~600x760px, .webp) -->
+              <img src="assets/equipe-2.svg"
+                   alt="Retrato de Nome da profissional 2, Colorista da AM Casa"
+                   width="600" height="760" loading="lazy" />
+            </div>
+            <h3>Nome da profissional 2</h3><!-- [AJUSTAR: nome real] -->
+            <p class="member__role">Colorista</p><!-- [AJUSTAR: função real] -->
+            <p class="member__tags">Coloração · Tratamentos</p>
+            <a class="member__cta"
+               href="https://wa.me/5567981283113?text=Oi!%20Vim%20pelo%20site%20e%20quero%20agendar%20um%20hor%C3%A1rio%20na%20AM%20Casa."
+               target="_blank" rel="noopener"
+               aria-label="Agendar horário com Nome da profissional 2 pelo WhatsApp">
+              Agendar <span aria-hidden="true">→</span>
+            </a>
+          </li>
+
+          <li class="member" data-especialidades="tratamentos">
+            <div class="member__media member-card__photo">
+              <!-- [AJUSTAR] foto retrato real (~600x760px, .webp) -->
+              <img src="assets/equipe-3.svg"
+                   alt="Retrato de Nome da profissional 3, Especialista em tratamentos da AM Casa"
+                   width="600" height="760" loading="lazy" />
+            </div>
+            <h3>Nome da profissional 3</h3><!-- [AJUSTAR: nome real] -->
+            <p class="member__role">Especialista em tratamentos</p><!-- [AJUSTAR: função real] -->
+            <p class="member__tags">Tratamentos</p>
+            <a class="member__cta"
+               href="https://wa.me/5567981283113?text=Oi!%20Vim%20pelo%20site%20e%20quero%20agendar%20um%20hor%C3%A1rio%20na%20AM%20Casa."
+               target="_blank" rel="noopener"
+               aria-label="Agendar horário com Nome da profissional 3 pelo WhatsApp">
+              Agendar <span aria-hidden="true">→</span>
+            </a>
+          </li>
+
+          <li class="member" data-especialidades="cortes coloracao">
+            <div class="member__media member-card__photo">
+              <!-- [AJUSTAR] foto retrato real (~600x760px, .webp) -->
+              <img src="assets/equipe-4.svg"
+                   alt="Retrato de Nome da profissional 4, Cabeleireira da AM Casa"
+                   width="600" height="760" loading="lazy" />
+            </div>
+            <h3>Nome da profissional 4</h3><!-- [AJUSTAR: nome real] -->
+            <p class="member__role">Cabeleireira</p><!-- [AJUSTAR: função real] -->
+            <p class="member__tags">Cortes · Coloração</p>
+            <a class="member__cta"
+               href="https://wa.me/5567981283113?text=Oi!%20Vim%20pelo%20site%20e%20quero%20agendar%20um%20hor%C3%A1rio%20na%20AM%20Casa."
+               target="_blank" rel="noopener"
+               aria-label="Agendar horário com Nome da profissional 4 pelo WhatsApp">
+              Agendar <span aria-hidden="true">→</span>
+            </a>
+          </li>
+
+          <li class="member" data-especialidades="penteados cortes">
+            <div class="member__media member-card__photo">
+              <!-- [AJUSTAR] foto retrato real (~600x760px, .webp) -->
+              <img src="assets/equipe-5.svg"
+                   alt="Retrato de Nome da profissional 5, Hair stylist da AM Casa"
+                   width="600" height="760" loading="lazy" />
+            </div>
+            <h3>Nome da profissional 5</h3><!-- [AJUSTAR: nome real] -->
+            <p class="member__role">Hair stylist</p><!-- [AJUSTAR: função real] -->
+            <p class="member__tags">Penteados · Cortes</p>
+            <a class="member__cta"
+               href="https://wa.me/5567981283113?text=Oi!%20Vim%20pelo%20site%20e%20quero%20agendar%20um%20hor%C3%A1rio%20na%20AM%20Casa."
+               target="_blank" rel="noopener"
+               aria-label="Agendar horário com Nome da profissional 5 pelo WhatsApp">
+              Agendar <span aria-hidden="true">→</span>
+            </a>
+          </li>
+
+          <li class="member" data-especialidades="coloracao">
+            <div class="member__media member-card__photo">
+              <!-- [AJUSTAR] foto retrato real (~600x760px, .webp) -->
+              <img src="assets/equipe-6.svg"
+                   alt="Retrato de Nome da profissional 6, Colorista da AM Casa"
+                   width="600" height="760" loading="lazy" />
+            </div>
+            <h3>Nome da profissional 6</h3><!-- [AJUSTAR: nome real] -->
+            <p class="member__role">Colorista</p><!-- [AJUSTAR: função real] -->
+            <p class="member__tags">Coloração</p>
+            <a class="member__cta"
+               href="https://wa.me/5567981283113?text=Oi!%20Vim%20pelo%20site%20e%20quero%20agendar%20um%20hor%C3%A1rio%20na%20AM%20Casa."
+               target="_blank" rel="noopener"
+               aria-label="Agendar horário com Nome da profissional 6 pelo WhatsApp">
+              Agendar <span aria-hidden="true">→</span>
+            </a>
+          </li>
+        </ul>
+
+        <p class="team__vazio" data-filtro-vazio hidden>
+          Ninguém nessa especialidade ainda. Fale com a gente no WhatsApp que a
+          gente te orienta.
+        </p>
+
+        <div class="section__cta reveal">
+          <a class="btn btnRipple btn--primary"
+             href="https://wa.me/5567981283113?text=Oi!%20Vim%20pelo%20site%20e%20quero%20agendar%20um%20hor%C3%A1rio%20na%20AM%20Casa."
+             target="_blank" rel="noopener"
+             aria-label="Agendar um horário pelo WhatsApp">
+            <svg class="icon" aria-hidden="true" focusable="false"><use href="#icon-whatsapp"></use></svg>
+            <span>Agendar meu horário</span>
+          </a>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==========================================================
+         9. PROVA SOCIAL — carrossel de depoimentos
+
+         ⚠️ ATENÇÃO: OS 3 DEPOIMENTOS ABAIXO SÃO FICTÍCIOS.
+         [AJUSTAR] Substituir por depoimentos REAIS de clientes antes
+         de publicar o site. Use nome real (com autorização) e cidade.
+         ========================================================== -->
+    <section class="section section--sand depoimentos" id="depoimentos">
+      <div class="container">
+
+        <header class="section__head">
+          <p class="eyebrow">Clientes</p>
+          <h2 class="section-title">O que dizem sobre a AM Casa</h2>
+        </header>
+
+        <!-- Carrossel contínuo: desliza sozinho da esquerda para a
+             direita e pausa quando o ponteiro entra ou algo recebe foco.
+             animations.js duplica os cards para o loop ficar sem emenda —
+             edite apenas os 3 depoimentos abaixo. -->
+        <div class="marquee" data-marquee>
+          <ul class="marquee__track" role="list">
+
+            <li class="testimonial">
+              <i data-lucide="quote" aria-hidden="true"></i>
+              <blockquote>
+                <p>Fui super bem atendida. Explicaram tudo antes e o resultado ficou exatamente como eu queria.</p>
+              </blockquote>
+              <p class="testimonial__author">Cliente exemplo, Campo Grande</p>
+            </li>
+
+            <li class="testimonial">
+              <i data-lucide="quote" aria-hidden="true"></i>
+              <blockquote>
+                <p>Me senti à vontade desde que cheguei. É um cuidado diferente, dá pra perceber a atenção.</p>
+              </blockquote>
+              <p class="testimonial__author">Cliente exemplo, Campo Grande</p>
+            </li>
+
+            <li class="testimonial">
+              <i data-lucide="quote" aria-hidden="true"></i>
+              <blockquote>
+                <p>Além do corte, me indicaram os produtos certos. Meu cabelo continua bonito em casa.</p>
+              </blockquote>
+              <p class="testimonial__author">Cliente exemplo, Campo Grande</p>
+            </li>
+
+          </ul>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==========================================================
+         10. FAQ — perguntas frequentes (accordion nativo)
+         ========================================================== -->
+    <section class="section faq" id="faq">
+      <div class="container faq__grid">
+
+        <!-- Coluna de apoio: para quem não achou a resposta na lista -->
+        <aside class="faq__aside reveal">
+          <header class="section__head">
+            <p class="eyebrow">Dúvidas</p>
+            <h2 class="section-title">Perguntas frequentes</h2>
+          </header>
+
+          <div class="faq__card">
+            <h3>Não achou o que procurava?</h3>
+            <p>Toda dúvida é bem-vinda. Chame no WhatsApp e a gente responde com calma.</p>
+
+            <ul class="faq__contact" role="list">
+              <li>
+                <i data-lucide="message-circle" aria-hidden="true"></i>
+                <div>
+                  <strong>WhatsApp</strong>
+                  <a href="https://wa.me/5567981283113?text=Oi!%20Vim%20pelo%20site%20e%20quero%20mais%20informa%C3%A7%C3%B5es%20sobre%20a%20AM%20Casa."
+                     target="_blank" rel="noopener">(67) 98128-3113</a>
+                </div>
+              </li>
+              <li>
+                <i data-lucide="clock" aria-hidden="true"></i>
+                <div>
+                  <strong>Atendimento</strong>
+                  <!-- [AJUSTAR] dias e horários -->
+                  <span>[AJUSTAR: seg a sáb]</span>
+                </div>
+              </li>
+              <li>
+                <svg class="icon icon--stroke" aria-hidden="true" focusable="false"><use href="#icon-instagram"></use></svg>
+                <div>
+                  <strong>Instagram</strong>
+                  <a href="https://www.instagram.com/anamesquitacasa/" target="_blank" rel="noopener">@anamesquitacasa</a>
+                </div>
+              </li>
+            </ul>
+
+            <a class="btn btnRipple btn--primary faq__cta"
+               href="https://wa.me/5567981283113?text=Oi!%20Vim%20pelo%20site%20e%20quero%20tirar%20uma%20d%C3%BAvida%20com%20a%20AM%20Casa."
+               target="_blank" rel="noopener"
+               aria-label="Tirar uma dúvida pelo WhatsApp">
+              <svg class="icon" aria-hidden="true" focusable="false"><use href="#icon-whatsapp"></use></svg>
+              <span>Tirar uma dúvida</span>
+            </a>
+          </div>
+        </aside>
+
+        <div class="faq__list">
+
+          <details class="faq__item reveal">
+            <summary>Preciso agendar ou posso ir direto?</summary>
+            <div class="faq__answer">
+              <p>O ideal é agendar pelo WhatsApp para garantir o seu horário e um atendimento sem pressa.</p>
+            </div>
+          </details>
+
+          <details class="faq__item reveal">
+            <summary>Vocês atendem qual faixa de idade?</summary>
+            <div class="faq__answer">
+              <p>Todas. A AM Casa é um espaço para mulheres de todas as idades.</p>
+            </div>
+          </details>
+
+          <details class="faq__item reveal">
+            <summary>Vocês vendem produtos para cabelo?</summary>
+            <div class="faq__answer">
+              <p>Sim. Trabalhamos com produtos selecionados para você manter o cuidado em casa. É só perguntar no WhatsApp o que combina com o seu cabelo.</p>
+            </div>
+          </details>
+
+          <details class="faq__item reveal">
+            <summary>Onde vocês ficam?</summary>
+            <div class="faq__answer">
+              <!-- [AJUSTAR] endereço real -->
+              <p>[AJUSTAR: endereço], em Campo Grande, MS.</p>
+            </div>
+          </details>
+
+          <details class="faq__item reveal">
+            <summary>Qual o horário de funcionamento?</summary>
+            <div class="faq__answer">
+              <!-- [AJUSTAR] dias e horários reais -->
+              <p>[AJUSTAR: dias e horários]</p>
+            </div>
+          </details>
+
+          <details class="faq__item reveal">
+            <summary>Como sei o valor do serviço?</summary>
+            <div class="faq__answer">
+              <p>Cada atendimento é personalizado. Chame no WhatsApp e a gente passa as informações certinhas para o seu caso.</p>
+            </div>
+          </details>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================
+         11. LOCALIZAÇÃO E CONTATO
+         [AJUSTAR] endereço, horário e o embed do Google Maps.
+         ========================================================== -->
+    <section class="section section--sand localizacao" id="localizacao">
+      <div class="container localizacao__grid">
+
+        <div class="localizacao__info reveal">
+          <p class="eyebrow">Onde estamos</p>
+          <h2 class="section-title">Venha nos visitar</h2>
+
+          <ul class="info-list" role="list">
+            <li>
+              <i data-lucide="map-pin" aria-hidden="true"></i>
+              <div>
+                <strong>Endereço</strong>
+                <!-- [AJUSTAR] endereço completo -->
+                <p>[AJUSTAR: rua, número, bairro]<br />Campo Grande, MS</p>
+              </div>
+            </li>
+            <li>
+              <i data-lucide="clock" aria-hidden="true"></i>
+              <div>
+                <strong>Horário de atendimento</strong>
+                <!-- [AJUSTAR] dias e horários -->
+                <p>[AJUSTAR: seg a sex, 9h às 19h]<br />[AJUSTAR: sábado, 9h às 17h]</p>
+              </div>
+            </li>
+            <li>
+              <i data-lucide="phone" aria-hidden="true"></i>
+              <div>
+                <strong>WhatsApp</strong>
+                <p><a href="https://wa.me/5567981283113?text=Oi!%20Vim%20pelo%20site%20e%20quero%20mais%20informa%C3%A7%C3%B5es%20sobre%20a%20AM%20Casa."
+                      target="_blank" rel="noopener">(67) 98128-3113</a></p>
+              </div>
+            </li>
+            <li>
+              <svg class="icon icon--stroke" aria-hidden="true" focusable="false"><use href="#icon-instagram"></use></svg>
+              <div>
+                <strong>Instagram</strong>
+                <p><a href="https://www.instagram.com/anamesquitacasa/" target="_blank" rel="noopener">@anamesquitacasa</a></p>
+              </div>
+            </li>
+          </ul>
+
+          <div class="localizacao__actions">
+            <!-- [AJUSTAR] troque o endereço na URL abaixo pelo endereço real -->
+            <a class="btn btnRipple btn--outline"
+               href="https://www.google.com/maps/dir/?api=1&amp;destination=AM+Casa+Campo+Grande+MS"
+               target="_blank" rel="noopener"
+               aria-label="Traçar rota até a AM Casa no Google Maps">
+              <i data-lucide="navigation" aria-hidden="true"></i>
+              <span>Traçar rota</span>
+            </a>
+
+            <a class="btn btnRipple btn--primary"
+               href="https://wa.me/5567981283113?text=Oi!%20Vim%20pelo%20site%20e%20quero%20mais%20informa%C3%A7%C3%B5es%20sobre%20a%20AM%20Casa."
+               target="_blank" rel="noopener"
+               aria-label="Chamar a AM Casa no WhatsApp">
+              <svg class="icon" aria-hidden="true" focusable="false"><use href="#icon-whatsapp"></use></svg>
+              <span>Chamar no WhatsApp</span>
+            </a>
+          </div>
+        </div>
+
+        <div class="localizacao__map reveal">
+          <!-- [AJUSTAR] MAPA:
+               1) Abra o Google Maps e busque o endereço da AM Casa.
+               2) Clique em Compartilhar > Incorporar um mapa > Copiar HTML.
+               3) Substitua o <iframe> abaixo pelo código copiado
+                  (mantenha os atributos loading="lazy" e title). -->
+          <iframe
+            title="Mapa da localização da AM Casa em Campo Grande, MS"
+            src="https://www.google.com/maps?q=Campo+Grande+MS&amp;output=embed"
+            width="100%" height="100%" style="border:0;"
+            allowfullscreen loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==========================================================
+         12. CTA FINAL — seção de respiro, fundo em acento suave
+         ========================================================== -->
+    <section class="cta-final" id="agendar">
+      <div class="container container--narrow cta-final__inner">
+        <p class="eyebrow">AM Casa</p>
+        <h2 class="cta-final__title section-title">Seu cabelo merece esse cuidado. Vamos começar?</h2>
+        <a class="btn btnRipple btn--primary btn--lg"
+           href="https://wa.me/5567981283113?text=Oi!%20Vim%20pelo%20site%20e%20quero%20agendar%20um%20hor%C3%A1rio%20na%20AM%20Casa."
+           target="_blank" rel="noopener"
+           aria-label="Agendar um horário pelo WhatsApp">
+          <svg class="icon" aria-hidden="true" focusable="false"><use href="#icon-whatsapp"></use></svg>
+          <span>Agendar pelo WhatsApp</span>
+        </a>
+        <p class="cta-final__note">Atendimento em Campo Grande, MS</p>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ============================================================
+       13. RODAPÉ
+       ============================================================ -->
+  <footer class="site-footer">
+    <div class="container site-footer__inner">
+
+      <!-- Coluna da marca -->
+      <div class="site-footer__brand">
+        <span class="monogram" aria-hidden="true">AM</span>
+        <p class="site-footer__name">AM Casa</p>
+        <p class="site-footer__desc">
+          Espaço de beleza e produtos para cabelo em Campo Grande, MS.
+          Cuidado personalizado para mulheres de todas as idades.
+        </p>
+
+        <div class="site-footer__social">
+          <a href="https://wa.me/5567981283113?text=Oi!%20Vim%20pelo%20site%20e%20quero%20agendar%20um%20hor%C3%A1rio%20na%20AM%20Casa."
+             target="_blank" rel="noopener" aria-label="WhatsApp da AM Casa">
+            <svg class="icon" aria-hidden="true" focusable="false"><use href="#icon-whatsapp"></use></svg>
+          </a>
+          <a href="https://www.instagram.com/anamesquitacasa/"
+             target="_blank" rel="noopener" aria-label="Instagram da AM Casa">
+            <svg class="icon icon--stroke" aria-hidden="true" focusable="false"><use href="#icon-instagram"></use></svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- Sitemap: colunas de navegação -->
+      <nav class="site-footer__sitemap" aria-label="Mapa do site">
+
+        <div class="site-footer__col">
+          <h3>Serviços</h3>
+          <!-- [AJUSTAR] acompanhe a lista real de serviços -->
+          <a href="#servicos">Corte e finalização</a>
+          <a href="#servicos">Coloração e mechas</a>
+          <a href="#servicos">Tratamentos capilares</a>
+          <a href="#servicos">Escova e penteados</a>
+          <a href="#servicos">Todas as idades</a>
+        </div>
+
+        <div class="site-footer__col">
+          <h3>A AM Casa</h3>
+          <a href="#sobre">Sobre nós</a>
+          <a href="#diferenciais">Diferenciais</a>
+          <a href="#como-funciona">Como funciona</a>
+          <a href="#produtos">Produtos</a>
+          <a href="#depoimentos">Depoimentos</a>
+        </div>
+
+        <div class="site-footer__col">
+          <h3>Atendimento</h3>
+          <a href="#faq">Perguntas frequentes</a>
+          <a href="#localizacao">Onde estamos</a>
+          <a href="https://wa.me/5567981283113?text=Oi!%20Vim%20pelo%20site%20e%20quero%20agendar%20um%20hor%C3%A1rio%20na%20AM%20Casa."
+             target="_blank" rel="noopener">Agendar horário</a>
+          <a href="https://wa.me/5567981283113?text=Oi!%20Vim%20pelo%20site%20e%20quero%20saber%20mais%20sobre%20os%20produtos%20para%20cabelo%20da%20AM%20Casa."
+             target="_blank" rel="noopener">Falar sobre produtos</a>
+        </div>
+
+        <div class="site-footer__col">
+          <h3>Contato</h3>
+          <a href="https://wa.me/5567981283113?text=Oi!%20Vim%20pelo%20site%20e%20quero%20agendar%20um%20hor%C3%A1rio%20na%20AM%20Casa."
+             target="_blank" rel="noopener">(67) 98128-3113</a>
+          <a href="https://www.instagram.com/anamesquitacasa/"
+             target="_blank" rel="noopener">@anamesquitacasa</a>
+          <!-- [AJUSTAR] endereço curto -->
+          <p class="site-footer__address">[AJUSTAR: rua, número, bairro]<br />Campo Grande, MS</p>
+        </div>
+
+      </nav>
+    </div>
+
+    <div class="container site-footer__bottom">
+      <p>&copy; <span id="year">2026</span> AM Casa. Todos os direitos reservados.</p>
+      <p class="site-footer__credits">Ana Mesquita Casa &middot; Campo Grande, MS</p>
+    </div>
+  </footer>
+
+  <!-- ============================================================
+       BOTÃO FLUTUANTE DE WHATSAPP
+       Aparece depois que o usuário rola além do hero (ver script.js).
+       ============================================================ -->
+  <a class="whatsapp-float" id="whatsappFloat"
+     href="https://wa.me/5567981283113?text=Oi!%20Vim%20pelo%20site%20e%20quero%20agendar%20um%20hor%C3%A1rio%20na%20AM%20Casa."
+     target="_blank" rel="noopener"
+     aria-label="Falar com a AM Casa no WhatsApp">
+    <svg class="icon" aria-hidden="true" focusable="false"><use href="#icon-whatsapp"></use></svg>
+    <span class="whatsapp-float__label">Agendar</span>
+  </a>
+
+  <!-- Ícones em linha fina (Lucide) -->
+  <script src="https://cdn.jsdelivr.net/npm/lucide@latest/dist/umd/lucide.min.js" defer></script>
+  <script src="script.js" defer></script>
+  <!-- Motor de animacoes e micro-interacoes -->
+  <script src="animations.js" defer></script>
+</body>
+</html>

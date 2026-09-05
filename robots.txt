@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+
+# [AJUSTAR] Depois de apontar o domínio final, descomente e troque a linha
+# abaixo — ela ajuda o Google a achar as páginas do site.
+# Sitemap: https://amcasa.com.br/sitemap.xml

@@ -1,0 +1,1514 @@
+/* ============================================================
+   AM CASA — Landing Page
+   Estilo: minimalismo editorial, muito respiro, elegância silenciosa.
+   Organização do arquivo:
+     01. Tokens (cores, tipografia, espaçamento)
+     02. Reset e base
+     03. Utilitários e layout
+     04. Tipografia
+     05. Botões e links
+     06. Animação de entrada (reveal)
+     07. Header
+     08. Hero
+     09. Barra de confiança
+     10. Sobre
+     11. Serviços (cards)
+     12. Diferenciais
+     13. Como funciona (etapas)
+     14. Produtos (vitrine / carrossel)
+     15. Equipe
+     16. Depoimentos (cards)
+     17. FAQ
+     18. Localização
+     19. CTA final
+     20. Rodapé
+     21. Botão flutuante WhatsApp
+     22. Responsivo (tablet / desktop)
+     23. Acessibilidade e preferências de movimento
+   ============================================================ */
+
+/* ============================================================
+   01. TOKENS
+   ============================================================ */
+:root {
+  /* Cores — ~70% neutro claro, ~20% grafite, ~10% acento */
+  --off-white:   #FAF8F5;   /* fundo principal */
+  --sand:        #EFE9E1;   /* seções alternadas / cards */
+  --nude:        #D9CFC4;   /* bordas e divisórias */
+  --graphite:    #1A1A1A;   /* texto e identidade */
+  --gray:        #6E665D;   /* textos de apoio */
+  --terracotta:  #C08A6E;   /* acento: hover, detalhes */
+  --gray-deep:   #3A352F;   /* apoio sobre o vídeo do hero */
+  --terracotta-soft: #F0E2D8; /* fundo suave do CTA final */
+  --whatsapp:    #25D366;   /* somente no botão flutuante */
+
+  /* Tipografia */
+  --font-title: "Cormorant Garamond", Georgia, "Times New Roman", serif;
+  --font-body:  "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+
+  /* Escala tipográfica (mobile → desktop) */
+  --fs-h1:      clamp(2.125rem, 1.35rem + 3.4vw, 3.5rem);   /* 34 → 56px */
+  --fs-h2:      clamp(1.625rem, 1.25rem + 1.6vw, 2.25rem);  /* 26 → 36px */
+  --fs-h3:      clamp(1.25rem, 1.19rem + 0.25vw, 1.375rem); /* 20 → 22px */
+  --fs-body:    clamp(1rem, 0.97rem + 0.13vw, 1.0625rem);   /* 16 → 17px */
+  --fs-small:   0.875rem;                                    /* 14px */
+  --lh-body:    1.6;
+
+  /* Espaçamento */
+  --space-section: clamp(4.5rem, 3rem + 7vw, 8.5rem);
+  --space-gutter:  clamp(1.25rem, 0.6rem + 2.6vw, 2.5rem);
+  --max-width:     1200px;
+  --max-width-narrow: 760px;
+
+  /* Formas e movimento */
+  --radius:      10px;
+  --radius-sm:   8px;
+  --radius-lg:   12px;
+  --border:      1px solid var(--nude);
+  --shadow-soft: 0 1px 2px rgba(26, 26, 26, 0.03), 0 12px 32px rgba(26, 26, 26, 0.05);
+  --shadow-lift: 0 2px 4px rgba(26, 26, 26, 0.04), 0 20px 44px rgba(26, 26, 26, 0.09);
+  --ease:        cubic-bezier(0.22, 0.61, 0.36, 1);
+  --t-fast:      180ms var(--ease);
+  --t-base:      320ms var(--ease);
+
+  --header-h:    72px;
+}
+
+/* ============================================================
+   02. RESET E BASE
+   ============================================================ */
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+* { margin: 0; }
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: calc(var(--header-h) + 16px);
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background-color: var(--off-white);
+  color: var(--graphite);
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  font-weight: 400;
+  line-height: var(--lh-body);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+img,
+svg,
+iframe { display: block; max-width: 100%; }
+
+img { height: auto; }
+
+/* Garante que a seção Equipe (com o atributo hidden) fique oculta */
+[hidden] { display: none !important; }
+
+ul, ol { list-style: none; padding: 0; }
+
+a { color: inherit; text-decoration: none; }
+
+button {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: 0;
+  cursor: pointer;
+}
+
+/* ============================================================
+   03. UTILITÁRIOS E LAYOUT
+   ============================================================ */
+.container {
+  width: 100%;
+  max-width: var(--max-width);
+  margin-inline: auto;
+  padding-inline: var(--space-gutter);
+}
+
+.container--narrow { max-width: var(--max-width-narrow); }
+
+.section { padding-block: var(--space-section); }
+
+.section--sand {
+  background-color: var(--sand);
+  border-block: var(--border);
+}
+
+.section__head {
+  max-width: 620px;
+  margin-bottom: clamp(2.5rem, 1.5rem + 3vw, 4rem);
+}
+
+.section__lead {
+  color: var(--gray);
+  margin-top: 1rem;
+}
+
+.section__cta {
+  display: flex;
+  justify-content: center;
+  margin-top: clamp(2.5rem, 1.5rem + 3vw, 4rem);
+}
+
+.icon {
+  width: 1.125em;
+  height: 1.125em;
+  flex-shrink: 0;
+  fill: currentColor;
+}
+
+/* Ícone de marca desenhado em linha (Instagram): mesmo peso dos ícones Lucide */
+.icon--stroke {
+  width: 22px;
+  height: 22px;
+  fill: none;
+}
+
+/* Ícones Lucide: traço fino e uniforme em toda a página.
+   O seletor cobre o placeholder <i data-lucide> e o <svg class="lucide">
+   que o Lucide gera no lugar dele. */
+[data-lucide],
+.lucide {
+  width: 22px;
+  height: 22px;
+  stroke-width: 1.25;
+  flex-shrink: 0;
+}
+
+/* Link "pular para o conteúdo" */
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 999;
+  padding: 0.75rem 1.25rem;
+  background: var(--graphite);
+  color: var(--off-white);
+  border-radius: 0 0 var(--radius-sm) 0;
+}
+
+.skip-link:focus { left: 0; }
+
+/* ============================================================
+   04. TIPOGRAFIA
+   ============================================================ */
+h1, h2, h3 {
+  font-family: var(--font-title);
+  font-weight: 400;
+  line-height: 1.15;
+  letter-spacing: 0.01em;
+  color: var(--graphite);
+  text-wrap: balance;
+}
+
+h1 { font-size: var(--fs-h1); line-height: 1.08; }
+h2 { font-size: var(--fs-h2); }
+
+h3 {
+  font-size: var(--fs-h3);
+  line-height: 1.25;
+  font-weight: 500;
+}
+
+p { text-wrap: pretty; }
+
+.eyebrow {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--terracotta);
+  margin-bottom: 0.875rem;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.4rem 0.9rem;
+  font-size: var(--fs-small);
+  letter-spacing: 0.06em;
+  color: var(--gray);
+  border: var(--border);
+  border-radius: 100px;
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
+.badge [data-lucide],
+.badge .lucide { width: 15px; height: 15px; }
+
+/* ============================================================
+   05. BOTÕES E LINKS
+   ============================================================ */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.625rem;
+  min-height: 52px;
+  padding: 0.875rem 1.75rem;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-body);
+  font-size: 0.9375rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-align: center;
+  cursor: pointer;
+  transition: background-color var(--t-base), color var(--t-base),
+              border-color var(--t-base), transform var(--t-fast),
+              box-shadow var(--t-base);
+}
+
+/* Primário: grafite → terracota no hover */
+.btn--primary {
+  background-color: var(--graphite);
+  color: var(--off-white);
+  border: 1px solid var(--graphite);
+}
+
+.btn--primary:hover,
+.btn--primary:focus-visible {
+  background-color: var(--terracotta);
+  border-color: var(--terracotta);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-soft);
+}
+
+/* Secundário: contorno fino → preenche em nude claro */
+.btn--outline {
+  background-color: transparent;
+  color: var(--graphite);
+  border: var(--border);
+}
+
+.btn--outline:hover,
+.btn--outline:focus-visible {
+  background-color: var(--nude);
+  border-color: var(--nude);
+  transform: translateY(-1px);
+}
+
+.btn--sm {
+  min-height: 44px;
+  padding: 0.6rem 1.15rem;
+  font-size: 0.875rem;
+}
+
+.btn--lg {
+  min-height: 60px;
+  padding: 1rem 2.5rem;
+  font-size: 1rem;
+}
+
+/* Link com seta (CTA secundário do hero) */
+.link-arrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 48px;
+  padding-block: 0.5rem;
+  font-size: 0.9375rem;
+  letter-spacing: 0.04em;
+  color: var(--gray);
+  border-bottom: 1px solid transparent;
+  transition: color var(--t-base), border-color var(--t-base);
+}
+
+.link-arrow:hover,
+.link-arrow:focus-visible {
+  color: var(--terracotta);
+  border-bottom-color: var(--terracotta);
+}
+
+/* ============================================================
+   06. ANIMAÇÃO DE ENTRADA
+   Movida para animations.css / animations.js, que centralizam
+   todo o movimento da página. A classe .reveal continua sendo
+   usada no HTML como marcador — quem a anima agora é o motor
+   de animações (data-anim="fade").
+   ============================================================ */
+
+/* ============================================================
+   07. HEADER FIXO
+   ============================================================ */
+.site-header {
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: 100;
+  /* min-height + padding (em vez de height fixo) para o efeito
+     shrink da navbar poder animar o padding. Ver animations.css. */
+  min-height: var(--header-h);
+  padding-block: 14px;
+  display: flex;
+  align-items: center;
+  background-color: rgba(250, 248, 245, 0.82);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid transparent;
+  transition: transform var(--t-base), border-color var(--t-base),
+              background-color var(--t-base), min-height var(--t-base),
+              padding var(--t-base), box-shadow var(--t-base);
+}
+
+/* Linha sutil quando a página é rolada */
+.site-header.is-scrolled { border-bottom-color: var(--nude); }
+
+/* Esconde ao rolar para baixo, reaparece ao rolar para cima */
+.site-header.is-hidden { transform: translateY(-100%); }
+
+.site-header__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.brand__logo {
+  width: 44px;
+  height: 44px;
+  border-radius: 4px;
+  object-fit: contain;
+}
+
+.brand__text { display: flex; flex-direction: column; line-height: 1.1; }
+
+.brand__name {
+  font-family: var(--font-title);
+  font-size: 1.25rem;
+  letter-spacing: 0.06em;
+}
+
+.brand__tag {
+  font-size: 0.6875rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--gray);
+}
+
+/* Navegação: escondida no mobile (a conversão é pelo botão) */
+.site-nav { display: none; }
+
+.site-nav a {
+  font-size: 0.9375rem;
+  letter-spacing: 0.03em;
+  color: var(--gray);
+  padding-block: 0.5rem;
+  border-bottom: 1px solid transparent;
+  transition: color var(--t-base), border-color var(--t-base);
+}
+
+.site-nav a:hover,
+.site-nav a:focus-visible {
+  color: var(--terracotta);
+  border-bottom-color: var(--terracotta);
+}
+
+/* ============================================================
+   08. HERO — fundo em vídeo
+   Empilhamento (z-index):
+     0  .hero__poster / .hero__video   fundo
+     1  .hero__overlay                 véu de leitura
+     2  .hero__grid                    copy e CTAs
+   ============================================================ */
+.hero {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+
+  /* Tela cheia. svh evita o "pulo" da barra do navegador no
+     celular; a primeira linha é o fallback para quem não tem svh. */
+  min-height: 100vh;
+  min-height: 100svh;
+
+  padding-top: calc(var(--header-h) + clamp(1.5rem, 1rem + 3vw, 3.5rem));
+  /* espaço embaixo para o indicador de rolagem não encostar no texto */
+  padding-bottom: clamp(6rem, 4rem + 6vw, 9rem);
+}
+
+/* ---------- Camada de fundo ---------- */
+.hero__bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  background-color: var(--sand);
+}
+
+/* Poster em duas camadas: se hero-poster.jpg ainda não existir,
+   o navegador simplesmente pinta a de baixo (o placeholder).
+   Nada de ícone de imagem quebrada. */
+.hero__poster {
+  position: absolute;
+  inset: 0;
+  background-image: url("assets/hero-poster.jpg"),
+                    url("assets/hero-poster-fallback.svg");
+  background-size: cover, cover;
+  background-position: center, center;
+  background-repeat: no-repeat, no-repeat;
+}
+
+.hero__video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+
+  /* Realce sutil: o véu off-white lava a imagem, e este ajuste
+     devolve a saturação. Os valores estão calibrados junto com as
+     opacidades do véu — mexer em um pede refazer a conta do contraste. */
+  filter: contrast(1.05) saturate(1.22);
+
+  /* Só aparece quando começa a tocar de fato. Se o arquivo não
+     existir ou a rede falhar, fica o poster — sem tela preta. */
+  opacity: 0;
+  transition: opacity 0.9s var(--ease);
+}
+
+.hero__video.is-playing { opacity: 1; }
+
+/* Vertical no celular, horizontal a partir de 768px.
+   O animations.js descarrega o que estiver escondido. */
+.hero__video--desktop { display: none; }
+.hero__video--mobile  { display: block; }
+
+/* ---------- Véu de leitura ----------
+   No mobile o texto ocupa a tela toda, então o véu é mais denso
+   em cima e alivia embaixo. */
+.hero__overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(
+    to bottom,
+    rgba(250, 248, 245, 0.78) 0%,
+    rgba(250, 248, 245, 0.72) 60%,
+    rgba(250, 248, 245, 0.67) 88%,
+    rgba(250, 248, 245, 0.38) 100%
+  );
+}
+
+/* ---------- Conteúdo ---------- */
+.hero__grid {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  gap: clamp(2.5rem, 1.5rem + 4vw, 4.5rem);
+  align-items: center;
+}
+
+.hero__content { max-width: 36rem; }
+
+.hero__title { margin-block: 1.25rem 1.5rem; }
+
+/* Sobre o vídeo, o texto de apoio usa um tom mais fundo que o --gray
+   padrão. É o que permite o véu ser leve o bastante para o vídeo
+   aparecer e, ainda assim, o texto passar em contraste AA.
+   Valores medidos quadro a quadro, não estimados. */
+.hero__lead {
+  max-width: 52ch;
+  color: var(--gray-deep);
+  font-size: clamp(1rem, 0.95rem + 0.3vw, 1.125rem);
+}
+
+.hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem 1.75rem;
+  margin-top: 2rem;
+}
+
+.hero__actions .btn { width: 100%; }
+
+/* Coluna dos cards flutuantes (só no desktop) */
+.hero .badge,
+.hero .link-arrow { color: var(--gray-deep); }
+
+/* ---------- Indicador de rolagem ---------- */
+.hero__scroll {
+  position: absolute;
+  z-index: 2;
+  left: 50%;
+  bottom: clamp(1.5rem, 1rem + 2vw, 2.75rem);
+  transform: translateX(-50%);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.5rem 1rem;
+
+  font-size: 0.6875rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gray-deep);
+  transition: color var(--t-base);
+}
+
+.hero__scroll:hover,
+.hero__scroll:focus-visible { color: var(--terracotta); }
+
+.hero__scroll-linha {
+  position: relative;
+  width: 1px;
+  height: 3rem;
+  overflow: hidden;
+  background-color: rgba(58, 53, 47, 0.25);
+}
+
+/* Um traço curto desce pela linha, em loop */
+.hero__scroll-linha::after {
+  content: "";
+  position: absolute;
+  inset-inline: 0;
+  top: 0;
+  height: 45%;
+  background-color: var(--graphite);
+  animation: heroScrollCue 2.4s var(--ease) infinite;
+}
+
+@keyframes heroScrollCue {
+  0%       { transform: translateY(-100%); }
+  55%, 100% { transform: translateY(300%); }
+}
+
+.hero__cards { display: none; }
+
+/* ============================================================
+   09. BARRA DE CONFIANÇA
+   ============================================================ */
+.trust {
+  border-block: var(--border);
+  background-color: var(--sand);
+  padding-block: clamp(1.75rem, 1.2rem + 2vw, 2.5rem);
+}
+
+.trust__grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem 1rem;
+}
+
+.trust__item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.625rem;
+  text-align: center;
+  font-size: var(--fs-small);
+  letter-spacing: 0.03em;
+  color: var(--gray);
+}
+
+.trust__item [data-lucide],
+.trust__item .lucide { color: var(--graphite); }
+
+/* ============================================================
+   10. SOBRE
+   ============================================================ */
+.sobre__grid {
+  display: grid;
+  gap: clamp(2.5rem, 1.5rem + 4vw, 4.5rem);
+  align-items: center;
+}
+
+/* No mobile o texto vem antes da foto; no desktop a foto volta para a esquerda */
+.sobre__media { order: 2; }
+
+.sobre__media img {
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  border-radius: var(--radius-lg);
+  border: var(--border);
+}
+
+.sobre__content h2 { margin-bottom: 1.5rem; }
+
+.sobre__content p {
+  color: var(--gray);
+  margin-bottom: 1.125rem;
+  max-width: 56ch;
+}
+
+.sobre__content .btn { margin-top: 1rem; }
+
+/* ============================================================
+   11. SERVIÇOS
+   ============================================================ */
+.cards {
+  display: grid;
+  gap: 1.25rem;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.875rem;
+  padding: clamp(1.75rem, 1.4rem + 1.4vw, 2.25rem);
+  background-color: #fff;
+  border: var(--border);
+  border-radius: var(--radius-lg);
+  transition: transform var(--t-base), box-shadow var(--t-base),
+              border-color var(--t-base);
+}
+
+.card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-lift);
+  border-color: var(--terracotta);
+}
+
+.card__icon { color: var(--graphite); margin-bottom: 0.25rem; }
+
+.card p {
+  color: var(--gray);
+  font-size: var(--fs-body);
+  flex-grow: 1;
+}
+
+.card__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  min-height: 48px;
+  margin-top: 0.25rem;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+  color: var(--graphite);
+  transition: color var(--t-base), gap var(--t-base);
+}
+
+.card__cta:hover,
+.card__cta:focus-visible {
+  color: var(--terracotta);
+  gap: 0.75rem;
+}
+
+/* ============================================================
+   12. DIFERENCIAIS
+   ============================================================ */
+.feature-grid {
+  display: grid;
+  gap: clamp(2rem, 1.5rem + 2vw, 3rem);
+}
+
+.feature { max-width: 44ch; }
+
+.feature [data-lucide],
+.feature .lucide {
+  color: var(--graphite);
+  margin-bottom: 1rem;
+}
+
+.feature h3 { margin-bottom: 0.5rem; }
+
+.feature p { color: var(--gray); }
+
+/* ============================================================
+   13. COMO FUNCIONA
+   ============================================================ */
+.steps {
+  display: grid;
+  gap: 2rem;
+  counter-reset: step;
+}
+
+.step {
+  position: relative;
+  padding-top: 1.5rem;
+  border-top: var(--border);
+}
+
+.step__num {
+  display: block;
+  font-family: var(--font-title);
+  font-size: 1.5rem;
+  color: var(--terracotta);
+  letter-spacing: 0.04em;
+  margin-bottom: 0.75rem;
+}
+
+.step h3 { margin-bottom: 0.5rem; }
+
+.step p { color: var(--gray); }
+
+/* ============================================================
+   14. PRODUTOS — vitrine / carrossel horizontal no mobile
+   ============================================================ */
+.showcase {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 72%;
+  gap: 1rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  /* sangra até as bordas da tela no mobile */
+  margin-inline: calc(var(--space-gutter) * -1);
+  padding-inline: var(--space-gutter);
+  padding-bottom: 0.5rem;
+}
+
+.showcase::-webkit-scrollbar { display: none; }
+
+.product { scroll-snap-align: start; }
+
+.product__media {
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+  border: var(--border);
+  background-color: var(--sand);
+  margin-bottom: 1rem;
+}
+
+.product__media img {
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  transition: transform 600ms var(--ease);
+}
+
+.product:hover .product__media img { transform: scale(1.04); }
+
+.product h3 { margin-bottom: 0.375rem; }
+
+.product p {
+  color: var(--gray);
+  font-size: var(--fs-small);
+}
+
+/* ============================================================
+   15. EQUIPE — grade de fotos com filtro
+   ============================================================ */
+.equipe { border-top: var(--border); }
+
+/* ---------- Botões de filtro ---------- */
+.filtros {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: clamp(2rem, 1.5rem + 2vw, 3rem);
+}
+
+.filtro {
+  min-height: 44px;
+  padding: 0.55rem 1.15rem;
+  border: var(--border);
+  border-radius: 100px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  color: var(--gray);
+  background-color: transparent;
+  transition: background-color var(--t-base), color var(--t-base),
+              border-color var(--t-base);
+}
+
+.filtro:hover {
+  color: var(--graphite);
+  border-color: var(--graphite);
+}
+
+.filtro.is-active {
+  background-color: var(--graphite);
+  border-color: var(--graphite);
+  color: var(--off-white);
+}
+
+/* ---------- Grade ---------- */
+.team {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: clamp(1.25rem, 1rem + 1.5vw, 2rem);
+}
+
+.member.is-oculto { display: none; }
+
+.member__media {
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+  border: var(--border);
+  background-color: var(--off-white);
+  margin-bottom: 1rem;
+}
+
+.member__media img {
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  transition: transform 700ms var(--ease);
+}
+
+.member:hover .member__media img { transform: scale(1.04); }
+
+.member h3 { margin-bottom: 0.25rem; }
+
+.member__role {
+  color: var(--gray);
+  font-size: var(--fs-small);
+}
+
+.member__tags {
+  margin-top: 0.375rem;
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--terracotta);
+}
+
+.member__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  min-height: 44px;
+  margin-top: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+  color: var(--graphite);
+  transition: color var(--t-base), gap var(--t-base);
+}
+
+.member__cta:hover,
+.member__cta:focus-visible {
+  color: var(--terracotta);
+  gap: 0.7rem;
+}
+
+.team__vazio {
+  color: var(--gray);
+  max-width: 46ch;
+  padding-block: 2rem;
+}
+
+/* Texto só para leitores de tela */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ============================================================
+   16. DEPOIMENTOS — cards
+   O trilho contínuo (marquee) fica em animations.css, bloco 14.
+   ============================================================ */
+.testimonial {
+  scroll-snap-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: clamp(1.75rem, 1.4rem + 1.5vw, 2.5rem);
+  background-color: var(--off-white);
+  border: var(--border);
+  border-radius: var(--radius-lg);
+}
+
+.testimonial [data-lucide],
+.testimonial .lucide { color: var(--terracotta); }
+
+.testimonial blockquote p {
+  font-family: var(--font-title);
+  font-size: clamp(1.25rem, 1.1rem + 0.7vw, 1.5rem);
+  line-height: 1.4;
+  color: var(--graphite);
+}
+
+.testimonial__author {
+  font-size: var(--fs-small);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--gray);
+  margin-top: auto;
+}
+
+/* ============================================================
+   17. FAQ
+   ============================================================ */
+.faq__grid {
+  display: grid;
+  gap: clamp(2.5rem, 1.5rem + 4vw, 4rem);
+}
+
+.faq__item {
+  border-bottom: var(--border);
+}
+
+.faq__item:first-child { border-top: var(--border); }
+
+.faq__item summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  min-height: 64px;
+  padding-block: 1.25rem;
+  font-family: var(--font-title);
+  font-size: var(--fs-h3);
+  font-weight: 500;
+  line-height: 1.3;
+  cursor: pointer;
+  list-style: none;
+  transition: color var(--t-base);
+}
+
+.faq__item summary::-webkit-details-marker { display: none; }
+
+.faq__item summary:hover { color: var(--terracotta); }
+
+/* Sinal de + / − desenhado em CSS */
+.faq__item summary::after {
+  content: "";
+  flex-shrink: 0;
+  width: 14px;
+  height: 14px;
+  background:
+    linear-gradient(var(--graphite), var(--graphite)) center/100% 1px no-repeat,
+    linear-gradient(var(--graphite), var(--graphite)) center/1px 100% no-repeat;
+  transition: transform var(--t-base);
+}
+
+.faq__item[open] summary::after { transform: rotate(45deg); }
+
+.faq__answer {
+  padding-bottom: 1.5rem;
+  max-width: 62ch;
+}
+
+.faq__answer p { color: var(--gray); }
+
+/* ============================================================
+   18. LOCALIZAÇÃO
+   ============================================================ */
+.localizacao__grid {
+  display: grid;
+  gap: clamp(2.5rem, 1.5rem + 4vw, 4rem);
+  align-items: center;
+}
+
+.localizacao__info h2 { margin-bottom: 2rem; }
+
+.info-list {
+  display: grid;
+  gap: 1.5rem;
+  margin-bottom: 2.5rem;
+}
+
+.info-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.info-list [data-lucide],
+.info-list .lucide { color: var(--terracotta); margin-top: 3px; }
+
+.info-list strong {
+  display: block;
+  font-weight: 500;
+  font-size: var(--fs-small);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 0.25rem;
+}
+
+.info-list p { color: var(--gray); }
+
+/* Alvo de toque confortavel (>= 44px) sem engordar o texto */
+.info-list a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  border-bottom: 1px solid var(--nude);
+  transition: color var(--t-base), border-color var(--t-base);
+}
+
+.info-list a:hover,
+.info-list a:focus-visible {
+  color: var(--terracotta);
+  border-bottom-color: var(--terracotta);
+}
+
+.localizacao__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.localizacao__actions .btn { flex: 1 1 100%; }
+
+.localizacao__map {
+  overflow: hidden;
+  border: var(--border);
+  border-radius: var(--radius-lg);
+  aspect-ratio: 4 / 3;
+  background-color: var(--nude);
+}
+
+.localizacao__map iframe { width: 100%; height: 100%; }
+
+/* ============================================================
+   19. CTA FINAL
+   ============================================================ */
+.cta-final {
+  background-color: var(--terracotta-soft);
+  padding-block: clamp(5rem, 3.5rem + 7vw, 9rem);
+  text-align: center;
+}
+
+.cta-final__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.cta-final__title {
+  font-size: clamp(2rem, 1.4rem + 2.8vw, 3rem);
+  margin-bottom: 2.5rem;
+  max-width: 18ch;
+}
+
+.cta-final .btn--primary:hover,
+.cta-final .btn--primary:focus-visible {
+  background-color: #A97155; /* terracota mais profunda sobre o fundo claro */
+  border-color: #A97155;
+}
+
+.cta-final__note {
+  margin-top: 1.5rem;
+  font-size: var(--fs-small);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--gray);
+}
+
+/* ============================================================
+   20. RODAPÉ
+   ============================================================ */
+.site-footer {
+  background-color: var(--graphite);
+  color: var(--off-white);
+  padding-top: clamp(3.5rem, 2.5rem + 4vw, 5.5rem);
+}
+
+.site-footer__inner {
+  display: grid;
+  gap: 3rem;
+  padding-bottom: 3.5rem;
+}
+
+.monogram {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  margin-bottom: 1.25rem;
+  border: 1px solid rgba(250, 248, 245, 0.5);
+  font-family: var(--font-title);
+  font-size: 1.5rem;
+  letter-spacing: 0.02em;
+}
+
+.site-footer__name {
+  font-family: var(--font-title);
+  font-size: 1.5rem;
+  letter-spacing: 0.06em;
+  margin-bottom: 0.5rem;
+}
+
+.site-footer__desc,
+.site-footer__address {
+  color: rgba(250, 248, 245, 0.6);
+  font-size: var(--fs-small);
+  max-width: 34ch;
+}
+
+.site-footer h3 {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(250, 248, 245, 0.5);
+  margin-bottom: 1.25rem;
+}
+
+.site-footer__col {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.25rem;
+}
+
+.site-footer__col a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.625rem;
+  min-height: 44px;
+  font-size: 0.9375rem;
+  color: rgba(250, 248, 245, 0.85);
+  transition: color var(--t-base);
+}
+
+.site-footer__col a:hover,
+.site-footer__col a:focus-visible { color: var(--terracotta); }
+
+.site-footer__address { margin-top: 0.75rem; }
+
+.site-footer__bottom {
+  padding-block: 1.75rem;
+  border-top: 1px solid rgba(250, 248, 245, 0.14);
+  font-size: var(--fs-small);
+  color: rgba(250, 248, 245, 0.5);
+}
+
+/* ============================================================
+   21. BOTÃO FLUTUANTE WHATSAPP
+   Única aparição do verde #25D366 na página.
+   ============================================================ */
+.whatsapp-float {
+  position: fixed;
+  right: clamp(1rem, 0.5rem + 2vw, 2rem);
+  bottom: clamp(1rem, 0.5rem + 2vw, 2rem);
+  z-index: 90;
+
+  display: inline-flex;
+  align-items: center;
+  gap: 0.625rem;
+  height: 60px;
+  width: 60px;
+  padding: 0;
+  border-radius: 100px;
+  overflow: hidden;
+
+  background-color: var(--whatsapp);
+  color: #fff;
+  box-shadow: 0 6px 24px rgba(37, 211, 102, 0.35);
+
+  /* escondido até o usuário rolar além do hero */
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(12px) scale(0.9);
+  transition: opacity var(--t-base), transform var(--t-base),
+              visibility var(--t-base), width var(--t-base),
+              padding var(--t-base), box-shadow var(--t-base);
+}
+
+.whatsapp-float.is-visible {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+}
+
+.whatsapp-float .icon {
+  width: 28px;
+  height: 28px;
+  margin-inline: 16px;
+}
+
+.whatsapp-float__label {
+  font-size: 0.9375rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+  opacity: 0;
+  width: 0;
+  transition: opacity var(--t-base);
+}
+
+.whatsapp-float:hover,
+.whatsapp-float:focus-visible {
+  box-shadow: 0 10px 30px rgba(37, 211, 102, 0.45);
+}
+
+/* ============================================================
+   22. RESPONSIVO
+   ============================================================ */
+
+/* ---------- Tablet (>= 640px) ---------- */
+@media (min-width: 48em) {
+  .hero__video--desktop { display: block; }
+  .hero__video--mobile  { display: none; }
+}
+
+@media (min-width: 40em) {
+  .hero__actions .btn { width: auto; }
+
+  .trust__grid { grid-template-columns: repeat(4, 1fr); }
+
+  .cards { grid-template-columns: repeat(2, 1fr); }
+
+  .feature-grid { grid-template-columns: repeat(2, 1fr); }
+
+  .steps { grid-template-columns: repeat(2, 1fr); }
+
+  .showcase { grid-auto-columns: 42%; }
+
+  .team { grid-template-columns: repeat(3, 1fr); }
+
+  .localizacao__actions .btn { flex: 0 1 auto; }
+
+  .site-footer__inner { grid-template-columns: 1fr; }
+
+  /* Botão flutuante ganha rótulo em telas maiores */
+  .whatsapp-float {
+    width: auto;
+    padding-right: 22px;
+  }
+
+  .whatsapp-float .icon { margin-right: 0; }
+
+  .whatsapp-float__label { opacity: 1; width: auto; }
+}
+
+/* ---------- Desktop (>= 64em / 1024px) ---------- */
+@media (min-width: 64em) {
+  :root { --header-h: 84px; }
+
+  .site-nav {
+    display: flex;
+    align-items: center;
+    gap: 2.25rem;
+  }
+
+  /* Hero: texto 55% / cards sobre o vídeo 45% */
+  .hero__grid { grid-template-columns: 55fr 45fr; }
+
+  /* No desktop o véu é horizontal: denso à esquerda, onde está a
+     copy, e leve à direita, deixando o vídeo aparecer. */
+  .hero__overlay {
+    background: linear-gradient(
+      to right,
+      rgba(250, 248, 245, 0.72) 0%,
+      rgba(250, 248, 245, 0.67) 50%,
+      rgba(250, 248, 245, 0.38) 70%,
+      rgba(250, 248, 245, 0.16) 88%,
+      rgba(250, 248, 245, 0.10) 100%
+    );
+  }
+
+  .hero__cards {
+    display: block;
+    position: relative;
+    min-height: 30rem;
+  }
+
+  .sobre__grid { grid-template-columns: 42fr 58fr; }
+
+  .sobre__media { order: 0; }
+
+  .cards { grid-template-columns: repeat(3, 1fr); }
+
+  .feature-grid { grid-template-columns: repeat(4, 1fr); }
+
+  .steps { grid-template-columns: repeat(4, 1fr); }
+
+  /* A vitrine de produtos vira grade (sem rolagem horizontal) */
+  .showcase {
+    grid-auto-flow: row;
+    grid-template-columns: repeat(4, 1fr);
+    grid-auto-columns: auto;
+    overflow: visible;
+    margin-inline: 0;
+    padding-inline: 0;
+  }
+
+  .localizacao__grid { grid-template-columns: 1fr 1fr; }
+
+  .localizacao__map { aspect-ratio: 1 / 1; }
+}
+
+/* ============================================================
+   23. ACESSIBILIDADE E PREFERÊNCIAS DE MOVIMENTO
+   ============================================================ */
+:focus-visible {
+  outline: 2px solid var(--terracotta);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+
+  .hero__scroll-linha::after { animation: none; transform: none; height: 100%; }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+}
+
+/* Impressão: layout limpo, sem elementos flutuantes */
+@media print {
+  .site-header,
+  .whatsapp-float,
+  .photo-fan__toggle,
+  .localizacao__map { display: none; }
+
+  body { background: #fff; }
+}
+
+
+/* ============================================================
+   24. FAQ — painel de contato ao lado do accordion
+   ============================================================ */
+.faq__aside .section__head { margin-bottom: 2rem; }
+
+.faq__card {
+  padding: clamp(1.75rem, 1.4rem + 1.4vw, 2.25rem);
+  background-color: var(--sand);
+  border: var(--border);
+  border-radius: var(--radius-lg);
+}
+
+.faq__card h3 { margin-bottom: 0.5rem; }
+
+.faq__card > p {
+  color: var(--gray);
+  margin-bottom: 1.75rem;
+}
+
+.faq__contact {
+  display: grid;
+  gap: 1.25rem;
+  margin-bottom: 1.75rem;
+}
+
+.faq__contact li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.875rem;
+}
+
+.faq__contact [data-lucide],
+.faq__contact .lucide,
+.faq__contact .icon {
+  color: var(--terracotta);
+  margin-top: 3px;
+}
+
+.faq__contact strong {
+  display: block;
+  font-size: var(--fs-small);
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 0.15rem;
+}
+
+.faq__contact a,
+.faq__contact span { color: var(--gray); }
+
+.faq__contact a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  border-bottom: 1px solid var(--nude);
+  transition: color var(--t-base), border-color var(--t-base);
+}
+
+.faq__contact a:hover,
+.faq__contact a:focus-visible {
+  color: var(--terracotta);
+  border-bottom-color: var(--terracotta);
+}
+
+.faq__cta { width: 100%; }
+
+/* ============================================================
+   25. RODAPÉ — marca + sitemap
+   ============================================================ */
+.site-footer__sitemap {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2.5rem 1.5rem;
+}
+
+.site-footer__social {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+}
+
+.site-footer__social a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 46px;
+  height: 46px;
+  border: 1px solid rgba(250, 248, 245, 0.25);
+  border-radius: 50%;
+  color: rgba(250, 248, 245, 0.85);
+  transition: background-color var(--t-base), border-color var(--t-base),
+              color var(--t-base), transform var(--t-fast);
+}
+
+.site-footer__social a:hover,
+.site-footer__social a:focus-visible {
+  background-color: var(--terracotta);
+  border-color: var(--terracotta);
+  color: var(--off-white);
+  transform: translateY(-2px);
+}
+
+.site-footer__social .icon { width: 20px; height: 20px; }
+
+.site-footer__bottom {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem 1.5rem;
+}
+
+.site-footer__credits { color: rgba(250, 248, 245, 0.4); }
+
+/* ---------- Tablet / desktop dos blocos 24 e 25 ---------- */
+@media (min-width: 64em) {
+  .faq__grid {
+    grid-template-columns: 0.9fr 1.1fr;
+    align-items: start;
+  }
+
+  /* O painel de contato acompanha a leitura do accordion */
+  .faq__aside {
+    position: sticky;
+    top: calc(var(--header-h) + 24px);
+  }
+
+  .site-footer__inner { grid-template-columns: 1.1fr 2.3fr; }
+
+  .site-footer__sitemap { grid-template-columns: repeat(4, 1fr); }
+}

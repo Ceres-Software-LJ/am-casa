@@ -1,0 +1,584 @@
+/* ============================================================
+   AM CASA — SISTEMA DE ANIMAÇÕES E MICRO-INTERAÇÕES
+   ------------------------------------------------------------
+   ONDE ENTRA: carregado DEPOIS de styles.css, no <head>:
+       <link rel="stylesheet" href="styles.css" />
+       <link rel="stylesheet" href="animations.css" />
+
+   Módulo independente: styles.css cuida do layout, este arquivo
+   cuida só de movimento. Remover este link desativa todas as
+   animações sem quebrar a página.
+
+   Regra de performance: só animamos transform e opacity
+   (propriedades compostas na GPU). Nada de animar width, top,
+   margin ou height em loop.
+
+   Guarda .js: os estados iniciais (opacity: 0) só valem quando o
+   JavaScript está ativo. Sem JS, a página aparece inteira.
+
+   ÍNDICE
+     00. Tokens de movimento
+     01. Navegação — shrink e sombra dinâmica
+     02. Hero — entrada escalonada
+     03. Títulos de seção — onda por palavra
+     04. Eyebrows, subtítulos e blocos genéricos
+     05. Máscara reveal — mídia (cortina para a direita)
+     06. Cortina vertical — fotos da equipe
+     07. Cards — entrada escalonada + tilt 3D
+     08. Botão primário — glow pulse
+     09. Ripple de clique
+     10. Limpeza pós-animação
+     11. prefers-reduced-motion
+   ============================================================ */
+
+/* ============================================================
+   00. TOKENS DE MOVIMENTO
+   ============================================================ */
+:root {
+  --anim-ease:    cubic-bezier(0.22, 0.61, 0.36, 1);  /* saída suave padrão */
+  --anim-bounce:  cubic-bezier(0.34, 1.2, 0.64, 1);   /* leve overshoot (CTAs) */
+  --anim-mask:    cubic-bezier(0.76, 0, 0.24, 1);     /* cortina/máscara */
+
+  --anim-dur:     0.75s;   /* entrada padrão */
+  --anim-dur-sm:  0.6s;    /* elementos pequenos (palavras) */
+  --anim-mask-dur: 0.95s;  /* cortinas */
+
+  --anim-word-step: 70ms;  /* passo da onda dos títulos */
+  --anim-card-step: 90ms;  /* passo do stagger dos cards */
+
+  /* Cor da cortina: por padrão o fundo da página.
+     Sobrescrita nas seções em areia, mais abaixo. */
+  --mask-bg: var(--off-white, #FAF8F5);
+}
+
+/* Keyframes compartilhados ------------------------------------ */
+@keyframes animFadeUp {
+  from { opacity: 0; transform: translateY(22px); }
+  to   { opacity: 1; transform: none; }
+}
+
+@keyframes animFadeUpScale {
+  from { opacity: 0; transform: translateY(24px) scale(0.97); }
+  to   { opacity: 1; transform: none; }
+}
+
+@keyframes animTitleIn {
+  from { opacity: 0; transform: translateY(26px) scale(0.985); }
+  to   { opacity: 1; transform: none; }
+}
+
+@keyframes animWordUp {
+  from { opacity: 0; transform: translateY(0.55em); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* ============================================================
+   01. NAVEGAÇÃO — shrink e sombra dinâmica
+   A classe .nav--shrink é aplicada por animations.js depois de
+   80px de rolagem. A transição de padding/box-shadow está
+   declarada na regra base .site-header (styles.css).
+   ============================================================ */
+.site-header.nav--shrink {
+  min-height: 62px;
+  padding-block: 9px;
+  box-shadow:
+    0 1px 2px rgba(26, 26, 26, 0.04),
+    0 10px 30px rgba(26, 26, 26, 0.07);
+}
+
+/* A logo acompanha o encolhimento da barra */
+.brand__logo {
+  transition: width var(--t-base, 320ms) var(--anim-ease),
+              height var(--t-base, 320ms) var(--anim-ease);
+}
+
+.site-header.nav--shrink .brand__logo {
+  width: 38px;
+  height: 38px;
+}
+
+/* ============================================================
+   02. HERO — entrada escalonada
+   Disparada pela classe .hero--loaded, adicionada ao <section
+   class="hero"> no DOMContentLoaded.
+
+   Sequência:  1 eyebrow 0.05s · 2 título 0.20s · 3 subtítulo 0.42s
+               4 CTAs 0.60s (bounce) · 5 stats 0.78s
+
+   ISOLAMENTO: a mídia do hero (.browser-mock) NÃO participa desta
+   sequência — ela tem a própria lógica de máscara (bloco 05).
+   ============================================================ */
+html.js .hero [data-hero-step] { opacity: 0; }
+
+.hero--loaded [data-hero-step] {
+  animation: animFadeUp var(--anim-dur) var(--anim-ease) both;
+}
+
+/* 2. Título: fade-up + scale */
+.hero--loaded [data-hero-step="2"] {
+  animation-name: animTitleIn;
+  animation-duration: 0.9s;
+}
+
+/* 4. CTAs: bounce discreto */
+.hero--loaded [data-hero-step="4"] {
+  animation-timing-function: var(--anim-bounce);
+}
+
+.hero--loaded [data-hero-step="1"] { animation-delay: 0.05s; }
+.hero--loaded [data-hero-step="2"] { animation-delay: 0.20s; }
+.hero--loaded [data-hero-step="3"] { animation-delay: 0.42s; }
+.hero--loaded [data-hero-step="4"] { animation-delay: 0.60s; }
+.hero--loaded [data-hero-step="5"] { animation-delay: 0.78s; }
+
+/* ============================================================
+   03. TÍTULOS DE SEÇÃO — onda por palavra
+   animations.js quebra o texto de .section-title em
+   <span class="w" style="--wi: N"> por palavra.
+   O atraso de cada palavra é --wi * 70ms.
+   ============================================================ */
+html.js .section-title .w {
+  display: inline-block;
+  opacity: 0;
+  will-change: transform, opacity;
+}
+
+.section-title.in .w {
+  animation: animWordUp var(--anim-dur-sm) var(--anim-ease) both;
+  animation-delay: calc(var(--wi, 0) * var(--anim-word-step));
+}
+
+/* ============================================================
+   04. EYEBROWS, SUBTÍTULOS E BLOCOS GENÉRICOS
+   Fade-up simples disparado por IntersectionObserver (.in).
+   .reveal é o seletor genérico herdado do restante do projeto.
+   ============================================================ */
+html.js .eyebrow,
+html.js .section-sub,
+html.js .section__lead,
+html.js [data-anim="fade"] { opacity: 0; }
+
+.eyebrow.in,
+.section-sub.in,
+.section__lead.in,
+[data-anim="fade"].in {
+  animation: animFadeUp var(--anim-dur) var(--anim-ease) both;
+}
+
+/* O eyebrow do hero é regido pela sequência do bloco 02 */
+html.js .hero [data-hero-step] .eyebrow,
+html.js .hero .eyebrow[data-hero-step] { opacity: inherit; animation: none; }
+
+/* ============================================================
+   05. MÁSCARA REVEAL — mídia
+   Cortina sólida cobrindo a imagem, que sai para a DIREITA
+   quando animations.js adiciona .mask-off.
+   ============================================================ */
+.browser-mock { position: relative; overflow: hidden; }
+
+html.js .browser-mock::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background-color: var(--mask-bg);
+  transform: translateX(0);
+  transition: transform var(--anim-mask-dur) var(--anim-mask);
+  pointer-events: none;
+}
+
+html.js .browser-mock.mask-off::after { transform: translateX(101%); }
+
+/* A cortina precisa ter a cor do fundo da seção onde está */
+.section--sand .browser-mock,
+.trust .browser-mock { --mask-bg: var(--sand, #EFE9E1); }
+
+.cta-final .browser-mock { --mask-bg: var(--terracotta-soft, #F0E2D8); }
+
+/* ============================================================
+   06. CORTINA VERTICAL — fotos da equipe
+   A cortina sobe, revelando a foto de baixo para cima.
+   ============================================================ */
+.member-card__photo { position: relative; overflow: hidden; }
+
+html.js .member-card__photo::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background-color: var(--mask-bg);
+  transform: translateY(0);
+  transition: transform var(--anim-mask-dur) var(--anim-mask);
+  pointer-events: none;
+}
+
+html.js .member-card__photo.mask-off::after { transform: translateY(-101%); }
+
+/* ============================================================
+   07. CARDS — entrada escalonada + tilt 3D
+   animations.js marca cada card com data-anim="card" e define
+   --ci (índice dentro do grupo) para o stagger.
+   ============================================================ */
+html.js [data-anim="card"] { opacity: 0; }
+
+[data-anim="card"].in {
+  animation: animFadeUpScale var(--anim-dur) var(--anim-ease) both;
+  animation-delay: calc(var(--ci, 0) * var(--anim-card-step));
+}
+
+/* --- Tilt 3D: só em dispositivos com mouse de verdade --------
+   Em telas de toque não existe hover; nada é aplicado.
+   O transform é escrito inline pelo JS (bloco de tilt).        */
+@media (hover: hover) and (pointer: fine) {
+  [data-tilt] {
+    transition: transform 420ms var(--anim-ease),
+                box-shadow 420ms var(--anim-ease),
+                border-color var(--t-base, 320ms) var(--anim-ease);
+  }
+
+  /* Enquanto o ponteiro está sobre o card, a resposta é quase
+     imediata para o tilt acompanhar o movimento sem "borracha". */
+  [data-tilt].is-tilting {
+    transition: transform 120ms linear, box-shadow 160ms linear;
+    will-change: transform;
+  }
+}
+
+/* ============================================================
+   08. BOTÃO PRIMÁRIO — glow pulse
+   Anel de luz expandindo a cada 4s. Como é box-shadow do próprio
+   elemento, não é cortado pelo overflow:hidden do ripple.
+   Para no hover/foco, devolvendo a sombra de hover do styles.css.
+   ============================================================ */
+@keyframes btnGlowPulse {
+  0%   { box-shadow: 0 0 0 0    rgba(192, 138, 110, 0); }
+  10%  { box-shadow: 0 0 0 0    rgba(192, 138, 110, 0.40); }
+  55%  { box-shadow: 0 0 0 12px rgba(192, 138, 110, 0); }
+  100% { box-shadow: 0 0 0 0    rgba(192, 138, 110, 0); }
+}
+
+.btn--primary { animation: btnGlowPulse 4s ease-out infinite; }
+
+.btn--primary:hover,
+.btn--primary:focus-visible { animation: none; }
+
+/* O botão do header fica sempre visível na tela: pulsar ali
+   seria ruído constante. */
+.site-header .btn--primary { animation: none; }
+
+/* ============================================================
+   09. RIPPLE DE CLIQUE
+   O <span class="ripple"> é criado por animations.js nas
+   coordenadas do clique e se remove sozinho ao terminar.
+   ============================================================ */
+.btnRipple { position: relative; overflow: hidden; }
+
+.ripple {
+  position: absolute;
+  z-index: 0;
+  border-radius: 50%;
+  background-color: currentColor;
+  opacity: 0.3;
+  transform: scale(0);
+  pointer-events: none;
+  animation: rippleOut 620ms ease-out forwards;
+}
+
+@keyframes rippleOut {
+  to { transform: scale(1); opacity: 0; }
+}
+
+/* O conteúdo do botão fica acima do ripple */
+.btnRipple > * { position: relative; z-index: 1; }
+
+/* ============================================================
+   10. LIMPEZA PÓS-ANIMAÇÃO
+   animations.js adiciona .anim-done quando a entrada termina.
+   Isso remove o animation-fill-mode, que senão travaria o
+   transform do elemento e mataria o hover/tilt dos cards.
+   ============================================================ */
+/* Os seletores abaixo precisam ser MAIS específicos que os estados
+   iniciais (opacity: 0) de cada bloco, senão o elemento volta a
+   sumir quando a animação é removida. */
+html.js .anim-done,
+html.js .hero [data-hero-step].anim-done,
+html.js .section-title.in .w.anim-done {
+  opacity: 1;
+  animation: none;
+  will-change: auto;
+}
+
+/* ============================================================
+   11. PREFERÊNCIA POR MENOS MOVIMENTO
+   Tudo que é decorativo é desligado: nada de entrada, cortina,
+   tilt, glow ou ripple. O conteúdo aparece direto, no lugar.
+   ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+  html.js .hero [data-hero-step],
+  html.js .section-title .w,
+  html.js .eyebrow,
+  html.js .section-sub,
+  html.js .section__lead,
+  html.js [data-anim="fade"],
+  html.js [data-anim="card"] {
+    opacity: 1 !important;
+    transform: none !important;
+    animation: none !important;
+  }
+
+  /* Cortinas somem na hora, sem varrer a tela */
+  html.js .browser-mock::after,
+  html.js .member-card__photo::after {
+    display: none;
+  }
+
+  [data-tilt] { transform: none !important; }
+
+  .btn--primary { animation: none; }
+
+  .ripple { display: none; }
+}
+
+/* ============================================================
+   12. HERO — CARDS FLUTUANTES
+   Sobrepostos à foto do hero. Têm animação própria (entrada com
+   bounce + flutuação contínua), independente da sequência
+   escalonada do bloco 02 — é a regra de isolamento do briefing.
+   ============================================================ */
+.float-card {
+  position: absolute;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  max-width: 232px;
+  padding: 0.85rem 1.1rem;
+  border: var(--border);
+  border-radius: var(--radius);
+  /* Translúcido de propósito: o vídeo aparece por trás do blur */
+  background-color: rgba(250, 248, 245, 0.82);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: var(--shadow-lift);
+}
+
+.float-card [data-lucide],
+.float-card .lucide {
+  width: 20px;
+  height: 20px;
+  color: var(--terracotta);
+}
+
+.float-card span { display: block; line-height: 1.3; }
+
+.float-card strong {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+
+.float-card em {
+  display: block;
+  margin-top: 2px;
+  font-size: 0.75rem;
+  font-style: normal;
+  color: var(--gray);
+}
+
+/* Posicionados dentro de .hero__cards (a coluna da direita do
+   hero). No mobile a coluna inteira fica oculta — ver styles.css. */
+.float-card--a { top: 2%;     left: 4%;  }
+.float-card--b { bottom: 4%;  right: 2%; }
+.float-card--c { top: 46%;    left: -6%; }
+
+@keyframes floatCardIn {
+  from { opacity: 0; transform: translateY(20px) scale(0.94); }
+  to   { opacity: 1; transform: none; }
+}
+
+@keyframes floatCardBob {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-9px); }
+}
+
+html.js .float-card { opacity: 0; }
+
+/* Entra depois da sequência do hero e passa a flutuar */
+.hero--loaded .float-card {
+  animation: floatCardIn 0.8s var(--anim-bounce) both,
+             floatCardBob 6s ease-in-out infinite;
+}
+
+.hero--loaded .float-card--a { animation-delay: 0.95s, 1.80s; }
+.hero--loaded .float-card--b { animation-delay: 1.10s, 2.40s; }
+.hero--loaded .float-card--c { animation-delay: 1.25s, 3.00s; }
+
+/* ============================================================
+   13. SOBRE — LEQUE DE FOTOS (card fan)
+   As fotos ficam empilhadas, alternam sozinhas a cada 4s e
+   abrem em leque no clique. --fi é o índice na pilha (0 = frente),
+   controlado por animations.js.
+   ============================================================ */
+.photo-fan { position: relative; }
+
+.photo-fan__stack {
+  position: relative;
+  aspect-ratio: 4 / 5;
+  cursor: pointer;
+}
+
+.photo-fan__item {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  border: var(--border);
+  border-radius: var(--radius-lg);
+  background-color: var(--sand);
+  box-shadow: var(--shadow-soft);
+  transform-origin: bottom center;
+  z-index: calc(10 - var(--fi, 0));
+
+  /* Empilhamento: cada foto atrás fica deslocada e menor */
+  transform:
+    translate(calc(var(--fi, 0) * 13px), calc(var(--fi, 0) * -11px))
+    scale(calc(1 - var(--fi, 0) * 0.045));
+
+  transition: transform 0.8s var(--anim-ease),
+              box-shadow 0.8s var(--anim-ease),
+              opacity 0.5s var(--anim-ease);
+}
+
+/* Anula a moldura herdada de .sobre__media img */
+.photo-fan__item img {
+  width: 100%;
+  height: 100%;
+  aspect-ratio: auto;
+  object-fit: cover;
+  border: 0;
+  border-radius: 0;
+}
+
+/* Leque aberto: as fotos abrem em torno da base */
+.photo-fan.is-open .photo-fan__item {
+  transform:
+    rotate(calc((var(--fi, 0) - 1) * 13deg))
+    translateX(calc((var(--fi, 0) - 1) * 13%))
+    translateY(calc(var(--fi, 0) * -4px));
+  box-shadow: var(--shadow-lift);
+}
+
+.photo-fan__toggle {
+  position: absolute;
+  z-index: 20;
+  bottom: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
+
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 44px;
+  padding: 0.55rem 1.15rem;
+  border: var(--border);
+  border-radius: 100px;
+
+  font-size: 0.875rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  color: var(--graphite);
+  background-color: rgba(250, 248, 245, 0.94);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: var(--shadow-soft);
+
+  transition: background-color var(--t-base), color var(--t-base),
+              border-color var(--t-base);
+}
+
+.photo-fan__toggle:hover,
+.photo-fan__toggle:focus-visible {
+  background-color: var(--graphite);
+  border-color: var(--graphite);
+  color: var(--off-white);
+}
+
+.photo-fan__toggle [data-lucide],
+.photo-fan__toggle .lucide { width: 17px; height: 17px; }
+
+/* ============================================================
+   14. DEPOIMENTOS — TRILHO CONTÍNUO (marquee)
+   Desliza da esquerda para a direita, sem emenda. animations.js
+   duplica os cards e calcula --marquee-shift e --marquee-dur
+   para a velocidade ficar igual em qualquer largura de tela.
+   ============================================================ */
+.marquee {
+  overflow: hidden;
+  margin-inline: calc(var(--space-gutter) * -1);
+  padding-inline: var(--space-gutter);
+
+  /* Suaviza as bordas para os cards não "cortarem" na lateral */
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
+          mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
+}
+
+.marquee__track {
+  display: flex;
+  gap: 1rem;
+  width: max-content;
+  padding-block: 0.25rem;
+}
+
+.marquee__track > .testimonial {
+  flex: 0 0 min(82vw, 400px);
+  scroll-snap-align: none;
+}
+
+@keyframes marqueeLTR {
+  from { transform: translateX(calc(var(--marquee-shift, 50%) * -1)); }
+  to   { transform: translateX(0); }
+}
+
+.marquee--ativo .marquee__track {
+  animation: marqueeLTR var(--marquee-dur, 40s) linear infinite;
+  will-change: transform;
+}
+
+/* Pausa ao passar o mouse ou quando algo dentro recebe foco */
+.marquee--ativo:hover .marquee__track,
+.marquee--ativo:focus-within .marquee__track { animation-play-state: paused; }
+
+/* Sem animação (movimento reduzido): vira rolagem manual */
+.marquee--estatico { overflow-x: auto; scrollbar-width: none; }
+.marquee--estatico::-webkit-scrollbar { display: none; }
+
+/* ============================================================
+   15. AJUSTES RESPONSIVOS DOS COMPONENTES ANIMADOS
+   ============================================================ */
+/* (as posições dos cards flutuantes valem só no desktop, porque
+   .hero__cards só é exibida a partir de 64em — ver styles.css) */
+
+/* ============================================================
+   16. MOVIMENTO REDUZIDO — componentes novos
+   ============================================================ */
+/* ============================================================
+   17. HERO EM VÍDEO — quando o vídeo não deve tocar
+   .hero--sem-video é aplicada por animations.js em conexão lenta
+   ou com economia de dados ligada. Fica só o poster.
+   ============================================================ */
+.hero--sem-video .hero__video { display: none !important; }
+
+@media (prefers-reduced-motion: reduce) {
+  /* Sem autoplay: o hero fica com a imagem estática */
+  .hero__video { display: none !important; }
+
+  html.js .float-card { opacity: 1 !important; }
+
+  .hero--loaded .float-card { animation: none !important; }
+
+  .photo-fan__item { transition: none !important; }
+
+  .marquee--ativo .marquee__track { animation: none !important; }
+
+  .marquee { overflow-x: auto; }
+}

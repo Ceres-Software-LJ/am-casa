@@ -1,0 +1,15 @@
+# Vídeos originais (fontes). As versões otimizadas que o site usa
+# estão em /assets e essas sim são versionadas.
+/*.mp4
+
+# Sistema operacional / editores
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+.DS_Store
+*.stackdump
+.vscode/
+.idea/
+
+# Vercel
+.vercel/
