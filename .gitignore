@@ -13,3 +13,6 @@ Desktop.ini
 
 # Vercel
 .vercel/
+
+# Documento de trabalho (publicado como artifact, não faz parte do site)
+auditoria.html

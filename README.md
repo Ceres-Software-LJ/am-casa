@@ -307,40 +307,49 @@ e o campo `telephone` no JSON-LD.
 
 ## Como publicar
 
-### Opção 1 — Netlify (mais simples, grátis)
+O projeto já está no GitHub e configurado para a Vercel:
 
-1. Acesse [app.netlify.com/drop](https://app.netlify.com/drop).
-2. Arraste a **pasta inteira** do projeto para a área indicada.
-3. O site entra no ar em segundos, com um endereço tipo `nome-aleatorio.netlify.app`.
-4. Em **Domain settings**, você pode conectar um domínio próprio
-   (ex.: `amcasa.com.br`) e o certificado HTTPS é gerado automaticamente.
+**Repositório:** https://github.com/Ceres-Software-LJ/am-casa
 
-Para atualizar depois, é só arrastar a pasta de novo.
+### Primeira publicação na Vercel
 
-### Opção 2 — Vercel
+1. Entre em [vercel.com/new](https://vercel.com/new) e escolha **Import Git Repository**.
+2. Selecione `Ceres-Software-LJ/am-casa`.
+3. Não mude nada nas configurações — o `vercel.json` já cuida de tudo:
+   - Framework Preset: **Other**
+   - Build Command: vazio
+   - Output Directory: vazio
+4. Clique em **Deploy**. Em menos de um minuto o site está no ar.
 
-1. Instale o [Vercel CLI](https://vercel.com/docs/cli): `npm i -g vercel`.
-2. Dentro da pasta do projeto, rode `vercel` e siga as perguntas.
+### Publicar uma alteração
 
-Ou suba a pasta para um repositório no GitHub e importe pelo painel da Vercel —
-assim cada alteração enviada ao GitHub publica sozinha.
+Depois de conectado, é só enviar para o GitHub que a Vercel publica sozinha:
 
-### Opção 3 — Hospedagem tradicional (cPanel, Hostinger, etc.)
-
-Envie os arquivos por FTP ou pelo Gerenciador de Arquivos para a pasta `public_html`,
-mantendo a estrutura:
-
-```
-public_html/
-├── index.html
-├── styles.css
-├── script.js
-└── assets/
+```bash
+git add .
+git commit -m "troca as fotos da equipe"
+git push
 ```
 
-Não é preciso instalar nada no servidor: é um site estático.
+### Domínio próprio
 
----
+No painel da Vercel: **Settings → Domains → Add**. Aponte o DNS conforme as
+instruções que aparecem lá. O certificado HTTPS é gerado automaticamente.
+
+Depois de apontar o domínio, lembre de trocá-lo no `<head>` do `index.html`
+(`canonical`, `og:url`, `og:image` e o `url` do JSON-LD) e de descomentar a
+linha `Sitemap:` do `robots.txt`.
+
+### O que o `vercel.json` já faz
+
+- Cache de 7 dias em `/assets` (imagens e vídeos) e nenhum cache no HTML, para
+  uma alteração de texto aparecer na hora.
+- Cabeçalhos de segurança básicos.
+- URLs limpas (`/` em vez de `/index.html`).
+
+> **Trocou uma foto e não apareceu?** É o cache de 7 dias. Ou espere, ou
+> renomeie o arquivo (ex.: `equipe-1-v2.webp`) e atualize o `src` no HTML —
+> renomear é o jeito garantido.
 
 ## Checklist antes de publicar
 
