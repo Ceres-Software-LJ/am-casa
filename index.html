@@ -143,20 +143,37 @@
         </span>
       </a>
 
-      <nav class="site-nav" aria-label="Navegação principal">
+      <nav class="site-nav" id="menuPrincipal" aria-label="Navegação principal">
         <a href="#sobre">Sobre</a>
         <a href="#servicos">Serviços</a>
+        <a href="#diferenciais" data-so-mobile>Diferenciais</a>
+        <a href="#como-funciona" data-so-mobile>Como funciona</a>
         <a href="#produtos">Produtos</a>
+        <a href="#equipe">Equipe</a>
+        <a href="#depoimentos">Depoimentos</a>
+        <a href="#faq">Dúvidas</a>
         <a href="#localizacao">Onde estamos</a>
       </nav>
 
-      <a class="btn btnRipple btn--primary btn--sm"
-         href="https://wa.me/5567981283113?text=Oi!%20Vim%20pelo%20site%20e%20quero%20agendar%20um%20hor%C3%A1rio%20na%20AM%20Casa."
-         target="_blank" rel="noopener"
-         aria-label="Agendar um horário pelo WhatsApp">
-        <svg class="icon" aria-hidden="true" focusable="false"><use href="#icon-whatsapp"></use></svg>
-        <span>Agendar</span>
-      </a>
+      <div class="site-header__acoes">
+        <a class="btn btnRipple btn--primary btn--sm"
+           href="https://wa.me/5567981283113?text=Oi!%20Vim%20pelo%20site%20e%20quero%20agendar%20um%20hor%C3%A1rio%20na%20AM%20Casa."
+           target="_blank" rel="noopener"
+           aria-label="Agendar um horário pelo WhatsApp">
+          <svg class="icon" aria-hidden="true" focusable="false"><use href="#icon-whatsapp"></use></svg>
+          <span>Agendar</span>
+        </a>
+
+        <!-- Menu do celular. Some a partir de 1024px, onde a
+             navegação já cabe na barra. -->
+        <button class="nav-toggle" type="button"
+                id="botaoMenu"
+                aria-label="Abrir menu"
+                aria-expanded="false"
+                aria-controls="menuPrincipal">
+          <span class="nav-toggle__barras" aria-hidden="true"></span>
+        </button>
+      </div>
     </div>
   </header>
 

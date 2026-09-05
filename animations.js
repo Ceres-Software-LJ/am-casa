@@ -407,9 +407,13 @@
 
   /* ==========================================================
      FASE 3.8 — LEQUE DE FOTOS (seção Sobre)
-     As fotos ficam empilhadas e trocam sozinhas. No clique
-     (mouse ou teclado) abrem em leque e a troca pausa.
-     A variável --fi guarda a posição de cada foto na pilha.
+
+     Fechado: as fotos ficam empilhadas e trocam sozinhas a cada 4s.
+     Aberto:  abrem em leque. Clicar numa foto de trás traz ela para
+              a frente; clicar na da frente (ou no botão) fecha.
+
+     A variável --fi guarda a posição de cada foto na pilha: 0 é a
+     da frente. Quem desenha a posição é o CSS.
      ========================================================== */
   function iniciarLeque() {
     buscarTodos(SELETORES.leque).forEach(function (leque) {
@@ -425,14 +429,36 @@
       function aplicarOrdem() {
         fotos.forEach(function (foto, i) {
           foto.style.setProperty("--fi", i);
-          // Só a foto da frente é anunciada; as de trás são decorativas
-          foto.setAttribute("aria-hidden", (!aberto && i > 0) ? "true" : "false");
+          foto.classList.toggle("is-front", i === 0);
+
+          if (aberto) {
+            // Abertas, as fotos viram alvos de clique de verdade
+            foto.setAttribute("role", "button");
+            foto.setAttribute("tabindex", "0");
+            foto.setAttribute("aria-hidden", "false");
+            foto.setAttribute("aria-label", i === 0
+              ? "Foto " + (i + 1) + " de " + fotos.length + ". Fechar o leque."
+              : "Ver a foto " + (i + 1) + " de " + fotos.length);
+          } else {
+            foto.removeAttribute("role");
+            foto.removeAttribute("tabindex");
+            foto.removeAttribute("aria-label");
+            // Empilhadas, só a da frente é anunciada
+            foto.setAttribute("aria-hidden", i > 0 ? "true" : "false");
+          }
         });
       }
 
-      function girar() {
-        fotos.push(fotos.shift());   // a da frente vai para o fim
+      /* Move a foto da posição `pos` para a frente, mantendo a
+         ordem circular das outras. */
+      function trazerParaFrente(pos) {
+        if (pos <= 0) return;
+        fotos = fotos.slice(pos).concat(fotos.slice(0, pos));
         aplicarOrdem();
+      }
+
+      function girar() {
+        trazerParaFrente(1);
       }
 
       function pararCiclo() {
@@ -446,8 +472,8 @@
         timer = window.setInterval(girar, CONFIG.lequeIntervalo);
       }
 
-      function alternar() {
-        aberto = !aberto;
+      function alternar(forcar) {
+        aberto = (typeof forcar === "boolean") ? forcar : !aberto;
         leque.classList.toggle("is-open", aberto);
 
         if (botao) botao.setAttribute("aria-expanded", aberto ? "true" : "false");
@@ -457,13 +483,35 @@
         if (aberto) { pararCiclo(); } else { iniciarCiclo(); }
       }
 
+      /* Um clique na pilha faz coisas diferentes conforme o estado */
+      function aoClicarNaPilha(evento) {
+        var foto = evento.target.closest(".photo-fan__item");
+
+        if (!aberto) { alternar(true); return; }   // fechado: abre
+        if (!foto)   { alternar(false); return; }  // clicou fora das fotos: fecha
+
+        var pos = fotos.indexOf(foto);
+        if (pos === 0) { alternar(false); return; } // já está na frente: fecha
+        trazerParaFrente(pos);                      // traz para a frente
+      }
+
       aplicarOrdem();
 
-      // Clicar na pilha abre/fecha (o botão tem o próprio handler)
-      if (pilha) pilha.addEventListener("click", alternar);
-      if (botao) botao.addEventListener("click", alternar);
+      if (pilha) {
+        pilha.addEventListener("click", aoClicarNaPilha);
 
-      // Enquanto o ponteiro está sobre as fotos, a troca pausa
+        // Mesmo comportamento pelo teclado
+        pilha.addEventListener("keydown", function (evento) {
+          if (evento.key !== "Enter" && evento.key !== " ") return;
+          if (!evento.target.closest(".photo-fan__item")) return;
+          evento.preventDefault();
+          aoClicarNaPilha(evento);
+        });
+      }
+
+      if (botao) botao.addEventListener("click", function () { alternar(); });
+
+      // Enquanto o ponteiro está sobre as fotos, a troca automática pausa
       leque.addEventListener("pointerenter", pararCiclo);
       leque.addEventListener("pointerleave", function () {
         if (!aberto) iniciarCiclo();

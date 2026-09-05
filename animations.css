@@ -420,6 +420,8 @@ html.js .float-card { opacity: 0; }
    abrem em leque no clique. --fi é o índice na pilha (0 = frente),
    controlado por animations.js.
    ============================================================ */
+/* Margem interna para o leque aberto girar sem encostar na
+   coluna de texto ao lado. */
 .photo-fan { position: relative; }
 
 .photo-fan__stack {
@@ -459,13 +461,25 @@ html.js .float-card { opacity: 0; }
   border-radius: 0;
 }
 
-/* Leque aberto: as fotos abrem em torno da base */
+/* Leque aberto: as fotos encolhem antes de abrir, para o leque
+   inteiro caber dentro da coluna e nunca invadir o texto ao lado. */
 .photo-fan.is-open .photo-fan__item {
   transform:
-    rotate(calc((var(--fi, 0) - 1) * 13deg))
-    translateX(calc((var(--fi, 0) - 1) * 13%))
-    translateY(calc(var(--fi, 0) * -4px));
+    rotate(calc((var(--fi, 0) - 1) * 10deg))
+    translateX(calc((var(--fi, 0) - 1) * 7%))
+    scale(0.74);
   box-shadow: var(--shadow-lift);
+  cursor: pointer;
+}
+
+/* A foto da frente ganha um leve destaque */
+.photo-fan.is-open .photo-fan__item.is-front { z-index: 20; }
+
+/* Feedback ao passar o mouse nas fotas de trás */
+.photo-fan.is-open .photo-fan__item:hover,
+.photo-fan.is-open .photo-fan__item:focus-visible {
+  box-shadow: 0 8px 20px rgba(26, 26, 26, 0.16),
+              0 24px 50px rgba(26, 26, 26, 0.14);
 }
 
 .photo-fan__toggle {

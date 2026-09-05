@@ -4,6 +4,7 @@
    Blocos:
      01. Ícones (Lucide)
      02. Header: sombra e esconder/mostrar na rolagem
+     03. Menu do celular (hambúrguer)
      (o fade-in ao rolar vive em animations.js)
      04. Botão flutuante de WhatsApp
      06. Ano no rodapé
@@ -43,7 +44,11 @@
 
       if (Math.abs(y - lastY) > DELTA) {
         var isScrollingDown = y > lastY;
-        header.classList.toggle("is-hidden", isScrollingDown && y > HIDE_AFTER);
+        var menuAberto = header.classList.contains("menu-aberto");
+        header.classList.toggle(
+          "is-hidden",
+          isScrollingDown && y > HIDE_AFTER && !menuAberto
+        );
         lastY = y;
       }
 
@@ -62,6 +67,64 @@
     );
 
     update();
+  }
+
+  /* ==========================================================
+     03. MENU DO CELULAR
+     O painel desce da própria barra. Fecha ao escolher uma
+     seção, ao clicar fora, com Esc, e ao voltar para o desktop.
+     ========================================================== */
+  function initMenu() {
+    var botao = document.getElementById("botaoMenu");
+    var menu = document.getElementById("menuPrincipal");
+    var header = document.getElementById("siteHeader");
+    if (!botao || !menu) return;
+
+    function definir(aberto) {
+      menu.classList.toggle("is-open", aberto);
+      botao.setAttribute("aria-expanded", aberto ? "true" : "false");
+      botao.setAttribute("aria-label", aberto ? "Fechar menu" : "Abrir menu");
+      // trava o esconde-esconde do header enquanto o menu está aberto
+      if (header) header.classList.toggle("menu-aberto", aberto);
+    }
+
+    function estaAberto() {
+      return botao.getAttribute("aria-expanded") === "true";
+    }
+
+    botao.addEventListener("click", function () {
+      definir(!estaAberto());
+    });
+
+    // Escolheu uma seção: fecha e deixa a rolagem acontecer
+    menu.addEventListener("click", function (evento) {
+      if (evento.target.closest("a")) definir(false);
+    });
+
+    document.addEventListener("keydown", function (evento) {
+      if (evento.key === "Escape" && estaAberto()) {
+        definir(false);
+        botao.focus();
+      }
+    });
+
+    document.addEventListener("click", function (evento) {
+      if (!estaAberto()) return;
+      if (evento.target.closest("#menuPrincipal")) return;
+      if (evento.target.closest("#botaoMenu")) return;
+      definir(false);
+    });
+
+    // Voltou para o desktop com o menu aberto: fecha para não
+    // deixar o painel preso no meio da barra
+    var telaGrande = window.matchMedia("(min-width: 64em)");
+    function aoTrocarDeTela() { if (telaGrande.matches) definir(false); }
+
+    if (telaGrande.addEventListener) {
+      telaGrande.addEventListener("change", aoTrocarDeTela);
+    } else if (telaGrande.addListener) {
+      telaGrande.addListener(aoTrocarDeTela);
+    }
   }
 
   /* ==========================================================
@@ -113,6 +176,7 @@
   function init() {
     initIcons();
     initHeader();
+    initMenu();
     initWhatsappFloat();
     initYear();
   }
